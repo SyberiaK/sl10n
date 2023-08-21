@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setup(
     name='sl10n',
-    version='0.1.0.1',
+    version='0.1.0.2',
     description='Static localization system that reduces a headache of working with localization',
     package_dir={'sl10n': 'sl10n'},
     packages=find_packages(),
