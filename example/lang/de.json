@@ -1,0 +1,14 @@
+{
+  "greetings_text": "Hallo Welt! Dies ist ein Static L10n Arbeitsbeispiel.",
+  "pros_title": "Hier sind einige Vorteile dieser Bibliothek:",
+  "pros_summary": [
+    "1. Statisch eingegebene Lokalisierungstasten, so dass Sie sich keine Sorgen über Tippfehler oder die Verwendung einer falschen Taste machen müssen.",
+    "2. Explizit und einfach zu verwenden.",
+    "3. Verwendung von JSON zum Speichern von Übersetzungen, so dass Sie neue Übersetzungen erstellen oder bestehende Übersetzungen einfach und schnell bearbeiten können.",
+    "4. Sie können mehrzeilige Zeichenketten als Arrays von Zeichenketten darstellen, was sowohl die Benutzerfreundlichkeit als auch die Lesbarkeit verbessert.",
+    "5. Sie können verschiedene JSON-Parser-Implementierungen verwenden (wenn sie der eingebauten 'json'-Schnittstelle folgen), z. B. 'simplejson' oder 'ujson'.",
+    "6. Modifikatoren, die die Verarbeitung bestimmter Dateien ändern können, ohne den Quellcode zu verändern."
+  ],
+  "success_text": "Ich hoffe, das hat Sie überzeugt :)",
+  "$redump": true
+}

@@ -1,0 +1,11 @@
+{
+  "topic_title": "Algorithme de base de la boucle 'for'",
+  "topic_text": [
+    "1. Démarre la boucle",
+    "2. Vérifiez la condition. Si elle est fausse, passez à l'étape 5.",
+    "3. Exécuter le corps de la boucle",
+    "4. Passer à l'étape 2.",
+    "5. Quitter la boucle."
+  ],
+  "topic_conclusion": "Vous connaissez maintenant l'algorithme de base de la boucle 'for' !"
+}

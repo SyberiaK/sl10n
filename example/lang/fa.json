@@ -1,0 +1,14 @@
+{
+  "greetings_text": "Hello world! This is an Static L10n working example.",
+  "pros_title": "Here are some pros of this library:",
+  "pros_summary": [
+    "1. Statically typed locale keys, allowing you to not worry about making a typo or using wrong key.",
+    "2. Explicit and easy to use.",
+    "3. Using JSON to store translations, allowing you to create new translation or edit existing ones easily and fast.",
+    "3. You can represent multiline strings as arrays of strings.",
+    "4. You can use different JSON parsers implementations (if they follow builtin 'json' interface), such as 'simplejson' or 'ujson'.",
+    "5. Modifiers that can change processing of specific files without changing source code."
+  ],
+  "success_text": "I hope this conviced you :)",
+  "$exclude": true
+}

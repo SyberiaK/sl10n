@@ -1,0 +1,11 @@
+{
+  "topic_title": "Basic 'for' loop algorithm",
+  "topic_text": [
+    "1. Start loop.",
+    "2. Check the condition. If it's False - go to step 5.",
+    "3. Execute loop body.",
+    "4. Go to step 2.",
+    "5. Exit loop."
+  ],
+  "topic_conclusion": "Now you know basic 'for' loop algorithm!"
+}

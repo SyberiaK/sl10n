@@ -1,0 +1,13 @@
+*.py[cod]
+*.log
+*.egg-info
+
+venv/
+.venv/
+.idea/
+.pytest_cache/
+build/
+dist/
+setup.py
+
+playground/
