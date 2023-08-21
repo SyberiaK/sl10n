@@ -115,7 +115,7 @@ print(locale.get(key))  # My text
   l10n = SL10n(MyLocale, 'lang', ignore_filenames=['config', 'tags'])
   ```
 
-- Choose a different JSON parsing implementation (one of [supported](#json_impl supports:)):
+- Choose a different JSON parsing implementation (one of [supported](#json-impl)):
 
   ```python
   import ujson
@@ -139,7 +139,7 @@ print(locale.get(key))  # My text
   }
   ```
 
-### json_impl supports:
+### <a name="json-impl"></a>json_impl supports:
 - json (builtin)
 - simplejson (loads faster, dumps slower)
 - ujson
