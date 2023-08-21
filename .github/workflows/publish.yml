@@ -1,4 +1,4 @@
-name: Upload Python Package
+name: Upload to PyPI
 
 on:
   release:
@@ -8,10 +8,9 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
-
+  pypi-publish:
+    name: Upload release to PyPI
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
@@ -29,5 +28,6 @@ jobs:
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
       with:
+        username: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
         repository-url: https://test.pypi.org/legacy/
