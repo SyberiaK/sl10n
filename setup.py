@@ -5,10 +5,10 @@ with open('README.md', 'r') as f:
 
 setup(
     name='sl10n',
-    version='0.1.0',
+    version='0.1.0.1',
     description='Static localization system that reduces a headache of working with localization',
-    package_dir={'': 'sl10n'},
-    packages=find_packages(where='sl10n'),
+    package_dir={'sl10n': 'sl10n'},
+    packages=find_packages(),
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/SyberiaK/sl10n',
