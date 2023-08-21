@@ -92,7 +92,8 @@ class SLocale:
                 Key used to get string.
         """
 
-        if key not in fields(self):
+        try:
+            return getattr(self, key)  # todo: write some tests for it
+        except AttributeError:
             warnings.warn(f'Got unexpected key "{key}", returned the key', UnexpectedLocaleKey, stacklevel=2)
             return key
-        return getattr(self, key)
