@@ -142,7 +142,7 @@ print(locale.get(key))  # My text
 ### <a name="json-impl"></a>json_impl supports:
 - json (builtin)
 - simplejson (loads faster, dumps slower)
-- ujson
+- ujson (loads and dumps much faster)
 
 ### json_impl not supports (different interface):
 - ijson
