@@ -3,6 +3,15 @@ from setuptools import find_packages, setup
 with open('README.md', 'r') as f:
     long_description = f.read()
 
+extra_dependencies = ['pytest>=7.4.0',
+                      'simplejson>=3.19.1',
+                      'ujson>=5.8.0',
+                      'twine>=4.0.2',
+                      'mkdocs>=1.5.2',
+                      'mkdocstrings>=0.22.0',
+                      'mkdocstrings-python>=1.5.0',
+                      'mkdocs-material>=9.2.1']
+
 setup(
     name='sl10n',
     version='0.1.0.2',
@@ -30,8 +39,6 @@ setup(
         'Topic :: Text Processing :: Linguistic',
         'Typing :: Typed'
     ],
-    extras_require={
-        'dev': ['pytest>=7.4.0', 'simplejson>=3.19.1', 'ujson>=5.8.0', 'twine>=4.0.2'],
-    },
+    extras_require={'dev': extra_dependencies},
     python_requires='>=3.8',
 )
