@@ -1,7 +1,5 @@
 # Welcome!
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
-
 ## Welcome to SL10n
 
 Here you'll find all the documentation you need to get up and running with the SL10n.
