@@ -146,7 +146,7 @@ class SL10n(Generic[T]):
             ```
 
             It also returns a reference to your SL10n object, so you can use this oneline to init immediately:
-            ```
+            ```python
             l10n = sl10n.Sl10n(MyLocale).init()
             ```
         """
@@ -187,7 +187,7 @@ class SL10n(Generic[T]):
         Note:
             We do recommend to type hint a variable where you would store a locale container.
             Some IDEs (like PyCharm) may fail to highlight unresolved attributes if you don't do so.
-            ```
+            ```python
             locale: MyLocale = l10n.locale('en')
             ```
         """
@@ -228,7 +228,7 @@ class SL10n(Generic[T]):
                 Defaults to ``False``.
 
         Note:
-            Can be called ONLY BEFORE SL10n initialization.
+            Can be called **only before** SL10n initialization.
             Issues a LangFileAlreadyExists warning if file already exists and ``override`` set to ``False``.
         """
         if self._initialized:

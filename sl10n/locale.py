@@ -69,6 +69,8 @@ class SLocale:
                 my_key_2: str
                 ...
 
+            ...
+
             locale = l10n.locale('en')
             locale_dict = locale.to_dict()  # {'lang_code': 'en', my_key_1: 'Text 1', my_key_2: 'Text 2', ...}
             ```
