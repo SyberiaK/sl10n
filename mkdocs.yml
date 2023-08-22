@@ -1,12 +1,26 @@
 site_name: SL10n Docs
+repo_url: https://github.com/SyberiaK/sl10n
+edit_uri: edit/main/docs/
 
 theme:
   name: material
+  language: en
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
   palette:
     scheme: slate
     primary: black
   features:
     - content.code.copy
+    - content.action.edit
+    - content.action.view
+    - header.autohide
+    - navigation.indexes
+    - navigation.instant
+    - navigation.top
+    - toc.integrate
 
 plugins:
   - mkdocstrings:
@@ -19,6 +33,8 @@ plugins:
             show_root_heading: true
             show_root_full_path: false
             show_signature_annotations: true
+  - git-revision-date-localized:
+      enable_creation_date: true
 
 markdown_extensions:
   - admonition
@@ -34,6 +50,15 @@ markdown_extensions:
   - pymdownx.snippets
 
 nav:
-  - Welcome!: index.md
-  - Quick Start: quick-start.md
-  - API Reference: reference.md
+  - index.md
+  - quick-start.md
+  - reference.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/SyberiaK
+      name: SyberiaK on GitHub
+    - icon: fontawesome/brands/x-twitter
+      link: https://twitter.com/syberiakey
+      name: SyberiaK on Twitter (screw you Elon)

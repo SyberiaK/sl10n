@@ -10,7 +10,8 @@ extra_dependencies = ['pytest>=7.4.0',
                       'mkdocs>=1.5.2',
                       'mkdocstrings>=0.22.0',
                       'mkdocstrings-python>=1.5.0',
-                      'mkdocs-material>=9.2.1']
+                      'mkdocs-material>=9.2.1',
+                      'mkdocs-git-revision-date-localized-plugin>=1.2.0']
 
 setup(
     name='sl10n',

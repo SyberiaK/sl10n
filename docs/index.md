@@ -1,6 +1,11 @@
-# Welcome!
+---
+search:
+  exclude: true
+hide:
+  - toc
+---
 
-## Welcome to SL10n
+# Welcome to SL10n!
 
 Here you'll find all the documentation you need to get up and running with the SL10n.
 
