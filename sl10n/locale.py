@@ -19,6 +19,14 @@ class SLocale:
     This class contains some specific fields and methods to your locale containers.
 
     Also, you must subclass your locale container from this class in order to use in ``SL10n``.
+
+    All locale containers have one reserved field - `lang_code`:
+    ```python
+    locale = l10n.locale('en')
+    my_lang = locale.lang_code  # 'en'
+    ```
+
+    This field always equals to current locale lang (filename) and cannot be overwritten even from the file.
     """
 
     lang_code: str
@@ -34,14 +42,15 @@ class SLocale:
 
         ``SLocale.lang_code`` sets to None.
 
-        Usage::
+        Example:
+            ```python
+            class MyLocale(sl10n.SLocale):
+                my_key_1: str
+                my_key_2: str
+                ...
 
-         class MyLocale(sl10n.SLocale):
-           my_key_1: str
-           my_key_2: str
-           ...
-
-         sample = MyLocale.sample()  # MyLocale(lang_code=None, my_key_1='my_key_1', my_key_2='my_key_2', ...)
+            sample = MyLocale.sample()  # MyLocale(lang_code=None, my_key_1='my_key_1', my_key_2='my_key_2', ...)
+            ```
         """
 
         _fields = (k.name for k in fields(cls))
@@ -53,17 +62,16 @@ class SLocale:
         """
         Returns a dict converted from a locale container.
 
-        Usage::
+        Example:
+            ```python
+            class MyLocale(sl10n.SLocale):
+                my_key_1: str
+                my_key_2: str
+                ...
 
-         class MyLocale(sl10n.SLocale):
-             my_key_1: str
-             my_key_2: str
-             ...
-
-         ...
-
-         locale = l10n.locale('en')
-         locale_dict = locale.to_dict()  # {'lang_code': 'en', my_key_1: 'Text 1', my_key_2: 'Text 2', ...}
+            locale = l10n.locale('en')
+            locale_dict = locale.to_dict()  # {'lang_code': 'en', my_key_1: 'Text 1', my_key_2: 'Text 2', ...}
+            ```
         """
 
         return asdict(self)
@@ -75,20 +83,21 @@ class SLocale:
 
         Can be used if the key is known only at runtime.
 
-        Usage::
+        Example:
+            ```python
+            class MyLocale(sl10n.SLocale):
+                my_key_1: str
+                my_key_2: str
+                ...
 
-         class MyLocale(sl10n.SLocale):
-             my_key_1: str
-             my_key_2: str
-             ...
+            ...
 
-         ...
+            locale = l10n.locale('en')
+            my_text_1 = locale.get('my_key_1')  # 'Text 1'
+            ```
 
-         locale = l10n.locale('en')
-         my_text_1 = locale.get('my_key_1')  # 'Text 1'
-
-         Parameters:
-            key (``str``):
+        Parameters:
+            key (str):
                 Key used to get string.
         """
 

@@ -28,61 +28,71 @@ class SL10n(Generic[T]):
     Static text localization system.
 
     To use it, first create a locale container (it MUST be a subclass of `sl10n.SLocale`)
-    and define some string keys in it::
+    and define some string keys in it:
+    ```python
+    class MyLocale(sl10n.SLocale):
+        my_key_1: str
+        my_key_2: str
+        ...
+    ```
 
-      class MyLocale(sl10n.SLocale):
-          my_key_1: str
-          my_key_2: str
-          ...
-
-    After that, create an SL10n object and pass in your locale container::
-
-      l10n = sl10n.Sl10n(MyLocale)
+    After that, create an SL10n object and pass in your locale container:
+    ```python
+    l10n = sl10n.Sl10n(MyLocale)
+    ```
 
     You can also define a path where your translation files are stored, what language is default,
-    what filenames should be ignored and what JSON parsing implementations to use::
+    what filenames should be ignored and what JSON parsing implementations to use:
+    ```python
+    from pathlib import Path
+    import ujson  # not a stdlib
 
-      import pathlib
-      import ujson  # not a stdlib
-
-      l10n = sl10n.Sl10n(MyLocale, pathlib.Path.cwd() / 'lang',
-                         default_lang='de', ignore_filenames=['tags'], json_impl=ujson)
+    l10n = sl10n.Sl10n(MyLocale, Path.cwd() / 'lang',
+                       default_lang='de',
+                       ignore_filenames=['tags'],
+                       json_impl=ujson)
+    ```
 
     Note that it only creates a reference to your localization system. To load all locale files
-    and pack their content into locale containers, call `SL10n.init()` method::
+    and pack their content into locale containers, call `SL10n.init()` method:
+    ```python
+    l10n = sl10n.Sl10n(MyLocale)
+    ...
+    l10n.init()
+    ```
 
-      l10n = sl10n.Sl10n(MyLocale)
+    `SL10n.init()` returns a reference to your SL10n object, so you can use this oneline to initialize immediately:
+    ```python
+    l10n = sl10n.Sl10n(MyLocale).init()
+    ```
 
-      ...
+    Now you can access to your locale by using `SL10n.locale(lang)` method:
+    ```python
+    locale = l10n.locale('en')
+    ```
 
-      l10n.init()
+    It returns your locale container with specific translated strings:
+    ```python
+    locale = l10n.locale('en')
+    my_text_1 = locale.my_key_1  # 'Text 1'
+    ```
 
-    `SL10n.init()` returns a reference to your SL10n object, so you can use this oneline to init immediately::
+    You can also access them dynamically if you need:
+    ```python
+    locale = l10n.locale('en')
+    my_text_1 = locale.get('my_key_2')  # 'Text 2'
+    ```
 
-      l10n = sl10n.Sl10n(MyLocale).init()
+    Strings cannot be reassigned:
+    ```python
+    locale.my_key_2 = 'New text 2'  # Error
+    ```
 
-    Now you can access to your locale by using `SL10n.locale(lang)` method::
-
-      locale = l10n.locale('en')
-
-    It returns your locale container with specific translated strings::
-
-      locale = l10n.locale('en')
-      my_text_1 = locale.my_key_1  # 'Text 1'
-
-    You can also access them dynamically if you need::
-
-      locale = l10n.locale('en')
-      my_text_1 = locale.get('my_key_2')  # 'Text 2'
-
-    Strings cannot be reassigned::
-
-      locale.my_key_2 = 'New text 2'  # Error
-
-    All locale containers have one reserved field - `lang_code`::
-
-      locale = l10n.locale('en')
-      my_lang = locale.lang_code  # 'en'
+    All locale containers have one reserved field - `lang_code`:
+    ```python
+    locale = l10n.locale('en')
+    my_lang = locale.lang_code  # 'en'
+    ```
 
     This field always equals to current locale lang (filename) and cannot be overwritten even from the file.
     """
@@ -128,17 +138,17 @@ class SL10n(Generic[T]):
 
         You must call it to access your localization.
 
-        Usage::
+        Example:
+            ```python
+            l10n = sl10n.Sl10n(MyLocale)
+            ...
+            l10n.init()
+            ```
 
-          l10n = sl10n.Sl10n(MyLocale)
-
-          ...
-
-          l10n.init()
-
-        It also returns a reference to your SL10n object, so you can use this oneline to init immediately::
-
-          l10n = sl10n.Sl10n(MyLocale).init()
+            It also returns a reference to your SL10n object, so you can use this oneline to init immediately:
+            ```
+            l10n = sl10n.Sl10n(MyLocale).init()
+            ```
         """
         if self._initialized:
             warnings.warn(SL10nAlreadyInitialized(), stacklevel=2)
@@ -162,22 +172,24 @@ class SL10n(Generic[T]):
         Returns a Locale object, containing all defined string keys translated to the requested language
         (if such translation exists, otherwise returns a default one).
 
-        Usage::
+        Example:
+            ```python
+            l10n = sl10n.Sl10n(MyLocale).init()
 
-          l10n = sl10n.Sl10n(MyLocale).init()
-
-          locale: MyLocale = l10n.locale('en')
-          print(locale.my_key_1)
+            locale: MyLocale = l10n.locale('en')
+            print(locale.my_key_1)
+            ```
 
         Parameters:
-            lang (``str``):
+            lang (str):
                 Language you want to get.
 
         Note:
             We do recommend to type hint a variable where you would store a locale container.
             Some IDEs (like PyCharm) may fail to highlight unresolved attributes if you don't do so.
-            ::
-             locale: MyLocale = l10n.locale('en')
+            ```
+            locale: MyLocale = l10n.locale('en')
+            ```
         """
 
         if not self._initialized:
@@ -201,16 +213,17 @@ class SL10n(Generic[T]):
 
         Useful for fast lang file creation.
 
-        Usage::
-
-          l10n = sl10n.Sl10n(MyLocale).init()
-          l10n.create_lang_file('de')
+        Example:
+            ```python
+            l10n = sl10n.Sl10n(MyLocale).init()
+            l10n.create_lang_file('de')
+            ```
 
         Parameters:
-            lang (``str``):
+            lang (str):
                 Language of translations in this file (used as filename).
 
-            override (``bool``, *optional*):
+            override (bool, optional):
                 If ``True``, existing file will be overwritten.
                 Defaults to ``False``.
 
@@ -219,8 +232,8 @@ class SL10n(Generic[T]):
             Issues a LangFileAlreadyExists warning if file already exists and ``override`` set to ``False``.
         """
         if self._initialized:
-            warnings.warn('"create_lang_file" can be called only before Sl10n initialization.',
-                          SL10nAlreadyInitialized, stacklevel=2)
+            warnings.warn(SL10nAlreadyInitialized('"create_lang_file" can be called only before Sl10n initialization.'),
+                          stacklevel=2)
             return
 
         path = Path(self.path) / f'{lang}.json'
