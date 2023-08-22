@@ -37,7 +37,7 @@ class MyLocale(SLocale):
     error_text: str
 ```
 
-!!! info
+!!! note
 
     All locale container strings, even multiline ones, have `#!python str` type.
 
@@ -70,7 +70,7 @@ call `SL10n.init()` method:
 sl10n.init()
 ```
 
-!!! info
+!!! tip
 
     `SL10n.init()` returns a reference to your SL10n object,
     so you can use this oneline to initialize immediately:
@@ -134,7 +134,7 @@ sl10n = SL10n(MyLocale)
 sl10n.create_lang_file('de')
 ```
 
-!!! info
+!!! tip
 
     You can pass in `override` argument to override existing file.
 

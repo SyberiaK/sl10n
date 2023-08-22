@@ -41,18 +41,6 @@ class SL10n(Generic[T]):
     l10n = sl10n.Sl10n(MyLocale)
     ```
 
-    You can also define a path where your translation files are stored, what language is default,
-    what filenames should be ignored and what JSON parsing implementations to use:
-    ```python
-    from pathlib import Path
-    import ujson  # not a stdlib
-
-    l10n = sl10n.Sl10n(MyLocale, Path.cwd() / 'lang',
-                       default_lang='de',
-                       ignore_filenames=['tags'],
-                       json_impl=ujson)
-    ```
-
     Note that it only creates a reference to your localization system. To load all locale files
     and pack their content into locale containers, call `SL10n.init()` method:
     ```python
@@ -60,47 +48,27 @@ class SL10n(Generic[T]):
     ...
     l10n.init()
     ```
-
-    `SL10n.init()` returns a reference to your SL10n object, so you can use this oneline to initialize immediately:
-    ```python
-    l10n = sl10n.Sl10n(MyLocale).init()
-    ```
-
-    Now you can access to your locale by using `SL10n.locale(lang)` method:
-    ```python
-    locale = l10n.locale('en')
-    ```
-
-    It returns your locale container with specific translated strings:
-    ```python
-    locale = l10n.locale('en')
-    my_text_1 = locale.my_key_1  # 'Text 1'
-    ```
-
-    You can also access them dynamically if you need:
-    ```python
-    locale = l10n.locale('en')
-    my_text_1 = locale.get('my_key_2')  # 'Text 2'
-    ```
-
-    Strings cannot be reassigned:
-    ```python
-    locale.my_key_2 = 'New text 2'  # Error
-    ```
-
-    All locale containers have one reserved field - `lang_code`:
-    ```python
-    locale = l10n.locale('en')
-    my_lang = locale.lang_code  # 'en'
-    ```
-
-    This field always equals to current locale lang (filename) and cannot be overwritten even from the file.
     """
 
     default_path = Path.cwd() / 'lang'
 
     def __init__(self, locale_container: Type[T], path: PathLike = None, *, default_lang: str = 'en',
-                 ignore_filenames: Iterable = None, json_impl: ModuleType = json):
+                 ignore_filenames: Iterable[str] = None, json_impl: ModuleType = json):
+        """
+        Parameters:
+            locale_container (Type[T]):
+                Locale container to use.
+                It must be a SLocale subclass.
+            path (str | bytes | os._PathLike | pathlib.Path, optional):
+                Path to your translation files directory. Defaults to pathlib.Path.cwd() / 'lang'.
+            default_lang (str, optional):
+                Default language. Defaults to 'en'.
+            ignore_filenames (Iterable[str], optional):
+                What filenames the parser should ignore. Defaults to [].
+            json_impl (ModuleType, optional):
+                What JSON parsing library to use. Defaults to builtin `json`.
+        """
+
         self._check_locale_container(locale_container)
 
         self.locale_container = locale_container
@@ -184,7 +152,7 @@ class SL10n(Generic[T]):
             lang (str):
                 Language you want to get.
 
-        Note:
+        Tip:
             We do recommend to type hint a variable where you would store a locale container.
             Some IDEs (like PyCharm) may fail to highlight unresolved attributes if you don't do so.
             ```python
@@ -227,7 +195,7 @@ class SL10n(Generic[T]):
                 If ``True``, existing file will be overwritten.
                 Defaults to ``False``.
 
-        Note:
+        Warning:
             Can be called **only before** SL10n initialization.
             Issues a LangFileAlreadyExists warning if file already exists and ``override`` set to ``False``.
         """

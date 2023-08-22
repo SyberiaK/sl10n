@@ -33,6 +33,7 @@ plugins:
             show_root_heading: true
             show_root_full_path: false
             show_signature_annotations: true
+            merge_init_into_class: yes
   - git-revision-date-localized:
       enable_creation_date: true
 

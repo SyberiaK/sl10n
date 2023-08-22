@@ -19,17 +19,10 @@ class SLocale:
     This class contains some specific fields and methods to your locale containers.
 
     Also, you must subclass your locale container from this class in order to use in ``SL10n``.
-
-    All locale containers have one reserved field - `lang_code`:
-    ```python
-    locale = l10n.locale('en')
-    my_lang = locale.lang_code  # 'en'
-    ```
-
-    This field always equals to current locale lang (filename) and cannot be overwritten even from the file.
     """
 
     lang_code: str
+    """Current locale lang code (filename). Cannot be overwritten even from the file."""
 
     def __init_subclass__(cls, *args, **kwargs):
         # noinspection PyArgumentList
