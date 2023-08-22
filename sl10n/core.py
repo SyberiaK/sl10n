@@ -16,7 +16,7 @@ from . import UTF8
 from .process import _LocaleProcess as LocaleProcess
 from .locale import SLocale
 from .modifiers import PreModifiers, PostModifiers
-from .warnings import DefaultLangFileNotFound, LangFileAlreadyExists, SL10nAlreadyInitialized, UnexpectedLocale
+from .warnings import DefaultLangFileNotFound, LangFileAlreadyExists, SL10nAlreadyInitialized, UndefinedLocale
 
 
 T = TypeVar('T')
@@ -107,6 +107,7 @@ class SL10n(Generic[T]):
     @property
     def initialized(self) -> bool:
         return self._initialized
+
     @staticmethod
     def _check_locale_container(locale_container) -> None:
         if not issubclass(locale_container, SLocale):
@@ -188,7 +189,7 @@ class SL10n(Generic[T]):
 
         if (locale := self.locales.get(lang)) is None:
             warnings.warn(f'Got unexpected lang "{lang}", returned "{self.default_lang}"',
-                          UnexpectedLocale, stacklevel=2)
+                          UndefinedLocale, stacklevel=2)
             return self.locales[self.default_lang]
 
         return locale

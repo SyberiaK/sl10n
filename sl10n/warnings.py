@@ -19,5 +19,6 @@ class UnexpectedLocaleKey(UserWarning):
     pass
 
 
-class UnexpectedLocale(UserWarning):
+class UndefinedLocale(UserWarning):
+    """Propogates when got undefined locale."""
     pass

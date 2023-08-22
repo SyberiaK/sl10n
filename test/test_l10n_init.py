@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from sl10n import SL10n
-from sl10n.warnings import DefaultLangFileNotFound, SL10nAlreadyInitialized, UnexpectedLocale
+from sl10n.warnings import DefaultLangFileNotFound, SL10nAlreadyInitialized, UndefinedLocale
 
 from . import *
 
@@ -104,7 +104,7 @@ def test_l10n_init_fr_not_found():
 
     assert l10n.default_lang == EN, f"{l10n.default_lang=}, expected {EN!r}"
 
-    with pytest.warns(UnexpectedLocale):
+    with pytest.warns(UndefinedLocale):
         locale: Locale = l10n.locale(FR)
 
     assert locale is not None, 'Expected locale to be not None'

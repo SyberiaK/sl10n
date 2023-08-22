@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 from sl10n import SL10n
-from sl10n.warnings import SL10nAlreadyInitialized, UnexpectedLocale
+from sl10n.warnings import SL10nAlreadyInitialized, UndefinedLocale
 
 from . import *
 
@@ -42,7 +42,7 @@ def test_l10n_create_file_after_init():
     with pytest.warns(SL10nAlreadyInitialized):
         l10n.create_lang_file('fr')
 
-    with pytest.warns(UnexpectedLocale):
+    with pytest.warns(UndefinedLocale):
         locale: Locale = l10n.locale(FR)
 
     assert locale is not None, 'Expected locale to be not None'
