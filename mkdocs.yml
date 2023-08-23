@@ -27,7 +27,7 @@ plugins:
       default_handler: python
       handlers:
         python:
-          paths: [ sl10n ]
+          paths: [ src/sl10n ]
           options:
             show_source: false
             show_root_heading: true

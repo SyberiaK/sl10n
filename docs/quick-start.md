@@ -20,8 +20,9 @@
 ## Import the library
 
 To start working with sl10n, we need to import the main parts of the library.
+
 ```python linenums="1"
-from sl10n import SL10n, SLocale
+from src.sl10n import SL10n, SLocale
 ```
 
 ## Define a locale container
@@ -200,8 +201,9 @@ def locale(lang: str = None) -> MyLocale:
 ## Basic template
 
 To summarize it up, here's the basic template for SL10n integration you can use as a starting point:
+
 ```python linenums="1"
-from sl10n import SL10n, SLocale
+from src.sl10n import SL10n, SLocale
 
 
 class MyLocale(SLocale):
@@ -210,7 +212,7 @@ class MyLocale(SLocale):
     success_text: str
     error_text: str
 
-    
+
 _l10n = SL10n(MyLocale)
 
 
@@ -223,6 +225,7 @@ def locale(lang: str = None) -> MyLocale:
 def main():
     loc = locale()  # returns default locale ('en' here)
     print(loc.greetings_text)  # Hello World!
+
 
 if __name__ == "__main__":
     main()
