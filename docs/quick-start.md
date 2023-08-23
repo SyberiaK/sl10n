@@ -22,7 +22,7 @@
 To start working with sl10n, we need to import the main parts of the library.
 
 ```python linenums="1"
-from src.sl10n import SL10n, SLocale
+from sl10n import SL10n, SLocale
 ```
 
 ## Define a locale container
@@ -55,17 +55,20 @@ what filenames should be ignored and what JSON parsing implementations to use:
 
 ```python linenums="1"
 from pathlib import Path
+from sl10n import SL10n, SLocale
 import ujson  # not a stdlib
 
-sl10n = sl10n.Sl10n(MyLocale, Path.cwd() / 'data',
-                    default_lang='de',
-                    ignore_filenames=['tags', 'config'],
-                    json_impl=ujson)
+...
+
+sl10n = Sl10n(MyLocale, Path.cwd() / 'data',
+              default_lang='de',
+              ignore_filenames=['tags', 'config'],
+              json_impl=ujson)
 ```
 
 Note that it only creates a *reference* to your localization system.
 To load all locale files and pack their content into locale containers,
-call `SL10n.init()` method:
+call `SL10n.init()`:
 
 ```python linenums="1"
 sl10n.init()
@@ -83,7 +86,8 @@ sl10n.init()
 ## Put your strings into translation files
 
 At first init, SL10n will create a default translation file 
-([working_dir]/lang/en.json by default). It will look like this: 
+(`[working_dir]/lang/en.json` by default). 
+It will look like this: 
 
 ```json
 {
@@ -169,8 +173,7 @@ You can access locale strings just like object attributes.
 If you do need to use string key:
 
 ```python linenums="1"
-# Type hint to ensure highlighting unknown attributes
-locale: MyLocale = l10n.locale('de')
+locale = l10n.locale('de')
 key = f()  # 'greetings_text'
 
 print(locale.get(key))  # Hallo Welt!
@@ -178,7 +181,7 @@ print(locale.get(key))  # Hallo Welt!
 
 !!! warning
 
-    If you pass an undefined key to locale.get(key) - it will return the key itself.
+    If you pass an undefined key to `locale.get(key)` - it will return the key itself.
 
     ```python linenums="1"
     print(locale.get('unknown_key'))  # unknown_key
@@ -203,7 +206,7 @@ def locale(lang: str = None) -> MyLocale:
 To summarize it up, here's the basic template for SL10n integration you can use as a starting point:
 
 ```python linenums="1"
-from src.sl10n import SL10n, SLocale
+from sl10n import SL10n, SLocale
 
 
 class MyLocale(SLocale):
