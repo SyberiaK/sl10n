@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class DefaultLangFileNotFound(UserWarning):
     """Propogates when the default language file not found."""
     pass
@@ -13,7 +16,7 @@ class SL10nAlreadyInitialized(UserWarning):
 
     DEFAULT_MESSAGE = 'SL10n already initialized.'
 
-    def __init__(self, message: str = None):
+    def __init__(self, message: str | None = None):
         self.message = message or self.DEFAULT_MESSAGE
 
     def __str__(self):

@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import NamedTuple
 
 
@@ -12,7 +13,7 @@ class PreModifiers(NamedTuple):
     - exclude (``bool``): Exclude a file from parsing.
     """
 
-    exclude: bool = None
+    exclude: bool | None = None
 
 
 class PostModifiers(NamedTuple):
@@ -26,4 +27,4 @@ class PostModifiers(NamedTuple):
     - redump (``bool``): Redump a file anyway.
     """
 
-    redump: bool = None
+    redump: bool | None = None

@@ -20,7 +20,7 @@ from .warnings import DefaultLangFileNotFound, LangFileAlreadyExists, SL10nAlrea
 
 
 T = TypeVar('T')
-PathLike = TypeVar('PathLike', str, bytes, _PathLike, Path)
+PathLike = TypeVar('PathLike', str, _PathLike, Path)
 
 
 class SL10n(Generic[T]):
@@ -52,8 +52,8 @@ class SL10n(Generic[T]):
 
     default_path = Path.cwd() / 'lang'
 
-    def __init__(self, locale_container: Type[T], path: PathLike = None, *, default_lang: str = 'en',
-                 ignore_filenames: Iterable[str] = None, json_impl: ModuleType = json):
+    def __init__(self, locale_container: Type[T], path: PathLike = default_path, *, default_lang: str = 'en',
+                 ignore_filenames: Iterable[str] | None = None, json_impl: ModuleType = json):
         """
         Parameters:
             locale_container (Type[T]):
@@ -74,7 +74,7 @@ class SL10n(Generic[T]):
         self.locale_container = locale_container
         self._lc_fields = tuple(k.name for k in fields(locale_container) if k not in fields(SLocale))
 
-        self.path = Path(path) if path else self.default_path
+        self.path = Path(path)
         self.default_lang = default_lang
         self.ignore_filenames = ignore_filenames if ignore_filenames else []
         self.json_impl = json_impl
@@ -135,7 +135,7 @@ class SL10n(Generic[T]):
         self._initialized = True
         return self
 
-    def locale(self, lang: str = None) -> T:
+    def locale(self, lang: str | None = None) -> T:
         """
         Returns a Locale object, containing all defined string keys translated to the requested language
         (if such translation exists, otherwise returns a default one).

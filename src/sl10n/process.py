@@ -9,7 +9,7 @@ import warnings
 from . import LOGGER, UTF8
 from .locale import SLocale
 from .modifiers import PreModifiers, PostModifiers
-from .warnings import *
+from .warnings import UndefinedLocaleKey, UnexpectedLocaleKey
 
 T = TypeVar('T')
 
@@ -29,12 +29,12 @@ class _LocaleProcess:
     premodifiers: PreModifiers
     postmodifiers: PostModifiers
     used_modifiers: tuple[str, ...]
-    lc_fields: tuple[str, ...]
     all_fields: tuple[str, ...]
+    lc_fields: tuple[str, ...]
     any_undefined_keys: bool
     unexpected_keys: tuple[str, ...]
     all_dumped_fields: tuple[str, ...]
-    
+
     def __new__(cls, locale_container: Type[T], file: Path, json_impl: ModuleType) -> T | None:
         cls.file = file
         cls.json_impl = json_impl
@@ -50,18 +50,15 @@ class _LocaleProcess:
         if signal == cls.EXCLUDE_SIGNAL:
             return
 
+        cls.all_fields = tuple(k.name for k in fields(locale_container))
         cls.lc_fields = tuple(k.name for k in fields(locale_container) if k not in fields(SLocale))
-        cls.all_fields = tuple(k.name for k in fields(SLocale)) + cls.lc_fields
         cls.any_undefined_keys = cls.any_undefined_key()
         cls.unexpected_keys = cls.find_unexpected_keys()
 
         cls.all_dumped_fields = cls.lc_fields + cls.used_modifiers + cls.unexpected_keys
 
-        # Dump data with undefined and unexpected keys
         if cls.any_undefined_keys or cls.unexpected_keys:
-            with open(file, 'w', encoding=UTF8) as f:
-                cls.data = {key: cls.data[key] for key in cls.all_dumped_fields}  # fixing pairs order
-                cls.json_impl.dump(cls.data, f, indent=2, ensure_ascii=False)
+            cls.redump()
 
         cls.apply_postmodifiers()
 
@@ -98,9 +95,13 @@ class _LocaleProcess:
     def apply_postmodifiers(cls):
         if cls.postmodifiers.redump:
             LOGGER.info(f'Redumping {cls.file.name}...')
-            with open(cls.file, 'w', encoding=UTF8) as f:
-                data = {key: cls.data[key] for key in cls.all_dumped_fields}  # fixing pairs order
-                cls.json_impl.dump(data, f, indent=2, ensure_ascii=False)
+            cls.redump()
+
+    @classmethod
+    def redump(cls):
+        with open(cls.file, 'w', encoding=UTF8) as f:
+            cls.data = {key: cls.data[key] for key in cls.all_dumped_fields}  # fixing pairs order
+            cls.json_impl.dump(cls.data, f, indent=2, ensure_ascii=False)
 
     @classmethod
     def any_undefined_key(cls):
