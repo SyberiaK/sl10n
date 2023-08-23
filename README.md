@@ -1,5 +1,12 @@
 # sl10n
 
+[![PyPI release]][pypi] 
+![Python supported versions] 
+![License] \
+![Tests] 
+[![Documentation status]][docs]
+
+
 sl10n is a library that takes a unique approach to dealing with localization by using statically typed translation keys.
 
 ## Features
@@ -147,3 +154,12 @@ print(locale.get(key))  # My text
 ### json_impl not supports (different interface):
 - ijson
 - orjson
+
+
+[pypi]: https://pypi.org/project/sl10n/
+[PyPI Release]: https://img.shields.io/pypi/v/sl10n.svg?label=pypi&color=green
+[Python supported versions]: https://img.shields.io/pypi/pyversions/sl10n.svg?label=%20&logo=python&logoColor=white
+[License]: https://img.shields.io/pypi/l/sl10n.svg?style=flat&label=license
+[Tests]: https://github.com/SyberiaK/sl10n/actions/workflows/test.yml/badge.svg
+[docs]: https://syberiak.github.io/sl10n
+[Documentation status]: https://github.com/SyberiaK/sl10n/actions/workflows/docs-publish.yml/badge.svg
