@@ -26,13 +26,9 @@ class _LocaleProcess:
     file: Path
     json_impl: ModuleType
     data: dict[str, Any]
-    premodifiers: PreModifiers
-    postmodifiers: PostModifiers
     used_modifiers: tuple[str, ...]
     all_fields: tuple[str, ...]
     lc_fields: tuple[str, ...]
-    any_undefined_keys: bool
-    unexpected_keys: tuple[str, ...]
     all_dumped_fields: tuple[str, ...]
 
     def __new__(cls, locale_container: Type[T], file: Path, json_impl: ModuleType) -> T | None:
@@ -42,27 +38,26 @@ class _LocaleProcess:
         with open(file, encoding=UTF8) as f:
             cls.data = cls.json_impl.load(f)
 
-        cls.premodifiers, cls.postmodifiers = cls.parse_modifiers(cls.data)
-        modifiers = dict(cls.premodifiers._asdict(), **cls.postmodifiers._asdict())
+        premodifiers, postmodifiers = cls.parse_modifiers()
+        modifiers = dict(premodifiers._asdict(), **postmodifiers._asdict())
         cls.used_modifiers = tuple('$' + k for k, v in modifiers.items() if v is not None)
 
-        signal = cls.apply_premodifiers()
+        signal = cls.apply_premodifiers(premodifiers)
         if signal == cls.EXCLUDE_SIGNAL:
             return
 
         cls.all_fields = tuple(k.name for k in fields(locale_container))
         cls.lc_fields = tuple(k.name for k in fields(locale_container) if k not in fields(SLocale))
-        cls.any_undefined_keys = cls.any_undefined_key()
-        cls.unexpected_keys = cls.find_unexpected_keys()
+        unexpected_keys = cls.find_unexpected_keys()
 
-        cls.all_dumped_fields = cls.lc_fields + cls.used_modifiers + cls.unexpected_keys
+        cls.all_dumped_fields = cls.lc_fields + cls.used_modifiers + unexpected_keys
 
-        if cls.any_undefined_keys or cls.unexpected_keys:
+        if cls.any_undefined_key() or unexpected_keys:
             cls.redump()
 
-        cls.apply_postmodifiers()
+        cls.apply_postmodifiers(postmodifiers)
 
-        for key in cls.unexpected_keys + cls.used_modifiers:
+        for key in unexpected_keys + cls.used_modifiers:
             del cls.data[key]
 
         # Join strings in arrays with '\n'
@@ -73,10 +68,10 @@ class _LocaleProcess:
         cls.data['lang_code'] = file.stem
         return locale_container(**cls.data)
 
-    @staticmethod
-    def parse_modifiers(data):
+    @classmethod
+    def parse_modifiers(cls):
         premod, postmod = {}, {}
-        for k, v in data.items():
+        for k, v in cls.data.items():
             if k.startswith('$'):
                 k = k[1:]
                 if k in PreModifiers._fields:
@@ -86,14 +81,14 @@ class _LocaleProcess:
         return PreModifiers(**premod), PostModifiers(**postmod)
 
     @classmethod
-    def apply_premodifiers(cls):
-        if cls.premodifiers.exclude:
+    def apply_premodifiers(cls, premodifiers: PreModifiers):
+        if premodifiers.exclude:
             LOGGER.info(f'Excluding {cls.file.name}...')
             return cls.EXCLUDE_SIGNAL
 
     @classmethod
-    def apply_postmodifiers(cls):
-        if cls.postmodifiers.redump:
+    def apply_postmodifiers(cls, postmodifiers: PostModifiers):
+        if postmodifiers.redump:
             LOGGER.info(f'Redumping {cls.file.name}...')
             cls.redump()
 
