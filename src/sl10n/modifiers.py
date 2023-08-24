@@ -10,7 +10,8 @@ class PreModifiers(NamedTuple):
 
     Available modifiers:
 
-    - exclude (``bool``): Exclude a file from parsing.
+    - exclude (``bool``):
+      Exclude file from parsing.
     """
 
     exclude: bool | None = None
@@ -24,7 +25,11 @@ class PostModifiers(NamedTuple):
 
     Available modifiers:
 
-    - redump (``bool``): Redump a file anyway.
+    - redump (``bool``):
+      Redump file anyway.
+    - lang_code (``str``):
+      Override language code of translation file (it doesn't override the access key in ``SL10n.locale()``!).
     """
 
     redump: bool | None = None
+    lang_code: str | None = None

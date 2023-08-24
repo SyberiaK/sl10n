@@ -65,7 +65,6 @@ class _LocaleProcess:
             if isinstance(val, list):
                 cls.data[key] = '\n'.join(val)
 
-        cls.data['lang_code'] = file.stem
         return locale_container(**cls.data)
 
     @classmethod
@@ -91,6 +90,11 @@ class _LocaleProcess:
         if postmodifiers.redump:
             LOGGER.info(f'Redumping {cls.filepath.name}...')
             cls.redump()
+        if postmodifiers.lang_code:
+            LOGGER.info(f'Changing lang code of "{cls.filepath.name}" to "{postmodifiers.lang_code}"')
+            cls.data['lang_code'] = postmodifiers.lang_code
+        else:
+            cls.data['lang_code'] = cls.filepath.stem
 
     @classmethod
     def redump(cls):
