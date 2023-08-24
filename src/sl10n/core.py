@@ -4,7 +4,6 @@ from dataclasses import fields
 import json
 from os import PathLike as _PathLike
 from pathlib import Path
-from types import ModuleType
 from typing import Generic, Iterable, Type, TypeVar
 import sys
 import warnings
@@ -13,6 +12,7 @@ if sys.version_info >= (3, 11):
     from typing import Self
 
 from . import UTF8
+from .pimpl import ParserImpl, JSONImpl
 from .process import _LocaleProcess as LocaleProcess
 from .locale import SLocale
 from .modifiers import PreModifiers, PostModifiers
@@ -20,7 +20,7 @@ from .warnings import DefaultLangFileNotFound, LangFileAlreadyExists, SL10nAlrea
 
 
 T = TypeVar('T')
-PathLike = TypeVar('PathLike', str, _PathLike, Path)
+PathLike = TypeVar('PathLike', str, _PathLike)
 
 
 class SL10n(Generic[T]):
@@ -51,22 +51,23 @@ class SL10n(Generic[T]):
     """
 
     default_path = Path.cwd() / 'lang'
+    default_pimpl = JSONImpl(json, indent=2, ensure_ascii=False)
 
-    def __init__(self, locale_container: Type[T], path: PathLike = default_path, *, default_lang: str = 'en',
-                 ignore_filenames: Iterable[str] | None = None, json_impl: ModuleType = json):
+    def __init__(self, locale_container: Type[T], path: Path | PathLike = default_path, *, default_lang: str = 'en',
+                 ignore_filenames: Iterable[str] | None = None, parser_impl: ParserImpl = default_pimpl):
         """
         Parameters:
             locale_container (Type[T]):
                 Locale container to use.
                 It must be a SLocale subclass.
-            path (str | bytes | os._PathLike | pathlib.Path, optional):
+            path (str | os.PathLike | pathlib.Path, optional):
                 Path to your translation files directory. Defaults to pathlib.Path.cwd() / 'lang'.
             default_lang (str, optional):
                 Default language. Defaults to 'en'.
             ignore_filenames (Iterable[str], optional):
-                What filenames the parser should ignore. Defaults to [].
-            json_impl (ModuleType, optional):
-                What JSON parsing library to use. Defaults to builtin `json`.
+                What filenames the parser should ignore. Defaults to ``[]``.
+            parser_impl (ParserImpl, optional):
+                What JSON parsing implementation to use. Defaults to ``JSONImpl(json, indent=2, ensure_ascii=False)``.
         """
 
         self._check_locale_container(locale_container)
@@ -77,7 +78,7 @@ class SL10n(Generic[T]):
         self.path = Path(path)
         self.default_lang = default_lang
         self.ignore_filenames = ignore_filenames if ignore_filenames else []
-        self.json_impl = json_impl
+        self.parser_impl = parser_impl
 
         self.locales: dict[str, T] = {}
         self._initialized = False
@@ -129,7 +130,7 @@ class SL10n(Generic[T]):
 
         for file in self.path.glob('*.json'):
             if file.stem not in self.ignore_filenames:
-                if locale := LocaleProcess(self.locale_container, file, self.json_impl):
+                if locale := LocaleProcess(self.locale_container, file, self.parser_impl):
                     self.locales[file.stem] = locale
 
         self._initialized = True
@@ -211,7 +212,7 @@ class SL10n(Generic[T]):
 
         p = Path(path).parent / f'{self.default_lang}.json'
         if p.exists():
-            sample = LocaleProcess(self.locale_container, p, self.json_impl)
+            sample = LocaleProcess(self.locale_container, p, self.parser_impl)
         else:
             sample = self.locale_container.sample()
 
@@ -231,4 +232,4 @@ class SL10n(Generic[T]):
             path.parent.mkdir(parents=True)
 
         with open(path, 'w', encoding=UTF8) as f:
-            self.json_impl.dump(sample, f, indent=2, ensure_ascii=False)
+            self.parser_impl.dump(sample, f)
