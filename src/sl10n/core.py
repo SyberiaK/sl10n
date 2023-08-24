@@ -66,7 +66,7 @@ class SL10n(Generic[T]):
                 Default language. Defaults to ``'en'``.
             ignore_filenames (Iterable[str], optional):
                 What filenames the parser should ignore. Defaults to ``()``.
-            parsing_impl (ParserImpl, optional):
+            parsing_impl (ParsingImpl, optional):
                 What JSON parsing implementation to use. Defaults to ``JSONImpl(json, indent=2, ensure_ascii=False)``.
 
         Raises:
