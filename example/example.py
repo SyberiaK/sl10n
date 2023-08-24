@@ -15,7 +15,7 @@ def demo(lang: str = 'en'):
 
     l10n.init()  # Redumping de.json... Excluding fa.json...
 
-    locale: Locale = l10n.locale(lang)  # Type hinted because PyCharm fails to highlight unknown attributes
+    locale = l10n.locale(lang)
 
     print(locale.greetings_text)
     print()

@@ -17,7 +17,7 @@ class SL10nAlreadyInitialized(UserWarning):
     DEFAULT_MESSAGE = 'SL10n already initialized.'
 
     def __init__(self, message: str | None = None):
-        self.message = message or self.DEFAULT_MESSAGE
+        self.message = message if message else self.DEFAULT_MESSAGE
 
     def __str__(self):
         return self.message
