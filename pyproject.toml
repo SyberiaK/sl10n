@@ -2,6 +2,62 @@
 requires = ["setuptools>=68.1.2", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "sl10n"
+authors = [
+    {name = "SyberiaK"},
+]
+description = "Static localization system that reduces the headache of working with localization"
+requires-python = ">=3.8"
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Internationalization",
+    "Topic :: Software Development :: Localization",
+    "Topic :: Text Processing :: Linguistic",
+    "Typing :: Typed"
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/SyberiaK/sl10n"
+Documentation = "https://syberiak.github.io/sl10n"
+Issues = "https://github.com/SyberiaK/sl10n/issues"
+
+[project.optional-dependencies]
+docs = ["mkdocs>=1.5.2",
+        "mkdocstrings>=0.22.0",
+        "mkdocstrings-python>=1.5.0",
+        "mkdocs-material>=9.2.1",
+        "mkdocs-git-revision-date-localized-plugin>=1.2.0"]
+test = ["orjson>=3.9.5",
+        "pytest>=7.4.0",
+        "pytest-cov>=4.1.0",
+        "pythom-rapidjson>=1.10",
+        "simplejson>=3.19.1",
+        "ujson>=5.8.0"]
+
+[tool.setuptools]
+packages = ["sl10n"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.dynamic]
+version = {attr = "sl10n.__version__"}
+
+[tool.setuptools.package-data]
+sl10n = ["py.typed"]
+
+
 [tool.pytest.ini_options]
 addopts = "--cov=sl10n"
 testpaths = ["tests"]
