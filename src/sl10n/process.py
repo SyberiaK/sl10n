@@ -23,7 +23,7 @@ class _LocaleProcess:
 
     EXCLUDE_SIGNAL = 0x01
 
-    file: Path
+    filepath: Path
     json_impl: ModuleType
     data: dict[str, Any]
     used_modifiers: tuple[str, ...]
@@ -31,11 +31,11 @@ class _LocaleProcess:
     lc_fields: tuple[str, ...]
     all_dumped_fields: tuple[str, ...]
 
-    def __new__(cls, locale_container: Type[T], file: Path, json_impl: ModuleType) -> T | None:
-        cls.file = file
+    def __new__(cls, locale_container: Type[T], filepath: Path, json_impl: ModuleType) -> T | None:
+        cls.filepath = filepath
         cls.json_impl = json_impl
 
-        with open(file, encoding=UTF8) as f:
+        with open(filepath, encoding=UTF8) as f:
             cls.data = cls.json_impl.load(f)
 
         premodifiers, postmodifiers = cls.parse_modifiers()
@@ -83,18 +83,18 @@ class _LocaleProcess:
     @classmethod
     def apply_premodifiers(cls, premodifiers: PreModifiers):
         if premodifiers.exclude:
-            LOGGER.info(f'Excluding {cls.file.name}...')
+            LOGGER.info(f'Excluding {cls.filepath.name}...')
             return cls.EXCLUDE_SIGNAL
 
     @classmethod
     def apply_postmodifiers(cls, postmodifiers: PostModifiers):
         if postmodifiers.redump:
-            LOGGER.info(f'Redumping {cls.file.name}...')
+            LOGGER.info(f'Redumping {cls.filepath.name}...')
             cls.redump()
 
     @classmethod
     def redump(cls):
-        with open(cls.file, 'w', encoding=UTF8) as f:
+        with open(cls.filepath, 'w', encoding=UTF8) as f:
             cls.data = {key: cls.data[key] for key in cls.all_dumped_fields}  # fixing pairs order
             cls.json_impl.dump(cls.data, f, indent=2, ensure_ascii=False)
 
@@ -103,7 +103,7 @@ class _LocaleProcess:
         found_undefined_keys = False
         for key in cls.lc_fields:
             if key not in cls.data.keys():
-                warnings.warn(f'Found undefined key "{key}" in "{cls.file}"', UndefinedLocaleKey, stacklevel=4)
+                warnings.warn(f'Found undefined key "{key}" in "{cls.filepath}"', UndefinedLocaleKey, stacklevel=4)
                 cls.data[key] = key
                 found_undefined_keys = True
 
@@ -115,7 +115,7 @@ class _LocaleProcess:
 
         for key in tuple(cls.data):
             if key not in cls.all_fields and key not in cls.used_modifiers:
-                warnings.warn(f'Got unexpected key "{key}" in "{cls.file}"', UnexpectedLocaleKey, stacklevel=4)
+                warnings.warn(f'Got unexpected key "{key}" in "{cls.filepath}"', UnexpectedLocaleKey, stacklevel=4)
                 unexpected_keys.append(key)
 
         return tuple(unexpected_keys)
