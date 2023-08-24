@@ -6,7 +6,7 @@ from typing import Any, Type, TypeVar
 import warnings
 
 from . import LOGGER, UTF8
-from .pimpl import ParserImpl
+from .pimpl import ParsingImpl
 from .locale import SLocale
 from .modifiers import PreModifiers, PostModifiers
 from .warnings import UndefinedLocaleKey, UnexpectedLocaleKey
@@ -24,19 +24,19 @@ class _LocaleProcess:
     EXCLUDE_SIGNAL = 0x01
 
     filepath: Path
-    parser_impl: ParserImpl
+    parsing_impl: ParsingImpl
     data: dict[str, Any]
     used_modifiers: tuple[str, ...]
     all_fields: tuple[str, ...]
     lc_fields: tuple[str, ...]
     all_dumped_fields: tuple[str, ...]
 
-    def __new__(cls, locale_container: Type[T], filepath: Path, parser_impl: ParserImpl) -> T | None:
+    def __new__(cls, locale_container: Type[T], filepath: Path, parsing_impl: ParsingImpl) -> T | None:
         cls.filepath = filepath
-        cls.parser_impl = parser_impl
+        cls.parsing_impl = parsing_impl
 
         with open(filepath, encoding=UTF8) as f:
-            cls.data = cls.parser_impl.load(f)
+            cls.data = parsing_impl.load(f)
 
         premodifiers, postmodifiers = cls.parse_modifiers()
         modifiers = dict(premodifiers._asdict(), **postmodifiers._asdict())
@@ -100,7 +100,7 @@ class _LocaleProcess:
     def redump(cls):
         with open(cls.filepath, 'w', encoding=UTF8) as f:
             cls.data = {key: cls.data[key] for key in cls.all_dumped_fields}  # fixing pairs order
-            cls.parser_impl.dump(cls.data, f)
+            cls.parsing_impl.dump(cls.data, f)
 
     @classmethod
     def any_undefined_key(cls):

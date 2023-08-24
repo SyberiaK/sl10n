@@ -4,13 +4,13 @@ import json
 from types import ModuleType
 from typing import Any, IO, NoReturn
 
-from .base import ParserImpl
+from .base import ParsingImpl
 
 
 __all__ = ('JSONImpl', 'ORJSONImpl')
 
 
-class JSONImpl(ParserImpl):
+class JSONImpl(ParsingImpl):
     """
     Interface for basic JSON parsers implementations (which follow builtin `json` interface).
 

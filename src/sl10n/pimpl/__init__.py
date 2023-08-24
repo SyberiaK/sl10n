@@ -1,2 +1,2 @@
-from .base import ParserImpl
+from .base import ParsingImpl
 from ._json import *

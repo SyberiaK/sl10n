@@ -11,7 +11,7 @@ from . import *
 
 def test_parser_impl_simplejson():
     path = Path(__file__).parent / 'data' / 'test_locale_en'
-    l10n = SL10n(Locale, path, parser_impl=JSONImpl(simplejson)).init()
+    l10n = SL10n(Locale, path, parsing_impl=JSONImpl(simplejson)).init()
 
     is_equal(l10n.default_lang, EN)
 
@@ -26,7 +26,7 @@ def test_parser_impl_simplejson():
 
 def test_parser_impl_rapidjson():
     path = Path(__file__).parent / 'data' / 'test_locale_en'
-    l10n = SL10n(Locale, path, parser_impl=JSONImpl(rapidjson)).init()
+    l10n = SL10n(Locale, path, parsing_impl=JSONImpl(rapidjson)).init()
 
     is_equal(l10n.default_lang, EN)
 
@@ -41,7 +41,7 @@ def test_parser_impl_rapidjson():
 
 def test_parser_impl_ujson():
     path = Path(__file__).parent / 'data' / 'test_locale_en'
-    l10n = SL10n(Locale, path, parser_impl=JSONImpl(ujson)).init()
+    l10n = SL10n(Locale, path, parsing_impl=JSONImpl(ujson)).init()
 
     is_equal(l10n.default_lang, EN)
 
@@ -56,7 +56,7 @@ def test_parser_impl_ujson():
 
 def test_parser_impl_orjson():
     path = Path(__file__).parent / 'data' / 'test_locale_en'
-    l10n = SL10n(Locale, path, parser_impl=ORJSONImpl()).init()
+    l10n = SL10n(Locale, path, parsing_impl=ORJSONImpl()).init()
 
     is_equal(l10n.default_lang, EN)
 

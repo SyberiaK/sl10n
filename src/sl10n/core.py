@@ -12,7 +12,7 @@ if sys.version_info >= (3, 11):
     from typing import Self
 
 from . import UTF8
-from .pimpl import ParserImpl, JSONImpl
+from .pimpl import ParsingImpl, JSONImpl
 from .process import _LocaleProcess as LocaleProcess
 from .locale import SLocale
 from .modifiers import PreModifiers, PostModifiers
@@ -54,7 +54,7 @@ class SL10n(Generic[T]):
     default_pimpl = JSONImpl(json, indent=2, ensure_ascii=False)
 
     def __init__(self, locale_container: Type[T], path: Path | PathLike = default_path, *, default_lang: str = 'en',
-                 ignore_filenames: Iterable[str] | None = None, parser_impl: ParserImpl = default_pimpl):
+                 ignore_filenames: Iterable[str] | None = None, parsing_impl: ParsingImpl = default_pimpl):
         """
         Parameters:
             locale_container (Type[T]):
@@ -66,7 +66,7 @@ class SL10n(Generic[T]):
                 Default language. Defaults to 'en'.
             ignore_filenames (Iterable[str], optional):
                 What filenames the parser should ignore. Defaults to ``[]``.
-            parser_impl (ParserImpl, optional):
+            parsing_impl (ParserImpl, optional):
                 What JSON parsing implementation to use. Defaults to ``JSONImpl(json, indent=2, ensure_ascii=False)``.
         """
 
@@ -78,7 +78,7 @@ class SL10n(Generic[T]):
         self.path = Path(path)
         self.default_lang = default_lang
         self.ignore_filenames = ignore_filenames if ignore_filenames else []
-        self.parser_impl = parser_impl
+        self.parsing_impl = parsing_impl
 
         self.locales: dict[str, T] = {}
         self._initialized = False
@@ -130,7 +130,7 @@ class SL10n(Generic[T]):
 
         for file in self.path.glob('*.json'):
             if file.stem not in self.ignore_filenames:
-                if locale := LocaleProcess(self.locale_container, file, self.parser_impl):
+                if locale := LocaleProcess(self.locale_container, file, self.parsing_impl):
                     self.locales[file.stem] = locale
 
         self._initialized = True
@@ -212,7 +212,7 @@ class SL10n(Generic[T]):
 
         p = Path(path).parent / f'{self.default_lang}.json'
         if p.exists():
-            sample = LocaleProcess(self.locale_container, p, self.parser_impl)
+            sample = LocaleProcess(self.locale_container, p, self.parsing_impl)
         else:
             sample = self.locale_container.sample()
 
@@ -232,4 +232,4 @@ class SL10n(Generic[T]):
             path.parent.mkdir(parents=True)
 
         with open(path, 'w', encoding=UTF8) as f:
-            self.parser_impl.dump(sample, f)
+            self.parsing_impl.dump(sample, f)

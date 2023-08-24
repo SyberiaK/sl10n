@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from typing import Any, IO, NoReturn
 
 
-class ParserImpl(ABC):
+class ParsingImpl(ABC):
     @abstractmethod
     def load(self, file: IO) -> Any:
         return NotImplemented
