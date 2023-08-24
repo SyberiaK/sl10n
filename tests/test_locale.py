@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from sl10n import SL10n
-from sl10n.warnings import DefaultLangFileNotFound, UndefinedLocale
+from sl10n.warnings import DefaultLangFileNotFound, UndefinedLocale, UnexpectedLocaleKey
 
 from . import *
 
@@ -62,3 +62,21 @@ def test_locale_fr_not_found():
     is_equal(locale.topic_title, "Basic 'for' loop algorithm")
     is_equal(locale.topic_text, TOPIC_TEXT_EN)
     is_equal(locale.topic_conclusion, "Now you know basic 'for' loop algorithm!")
+
+
+def test_locale_dynamic_access():
+    path = Path(__file__).parent / 'data' / 'test_locale_en'
+    l10n = SL10n(Locale, path).init()
+
+    is_equal(l10n.default_lang, EN)
+
+    locale = l10n.locale()
+
+    is_equal(type(locale), Locale)
+
+    is_equal(locale.lang_code, EN)
+    is_equal(locale.get('topic_title'), "Basic 'for' loop algorithm")
+    is_equal(locale.get('topic_text'), TOPIC_TEXT_EN)
+    is_equal(locale.get('topic_conclusion'), "Now you know basic 'for' loop algorithm!")
+    with pytest.warns(UnexpectedLocaleKey):
+        is_equal(locale.get('unknown_key'), 'unknown_key')
