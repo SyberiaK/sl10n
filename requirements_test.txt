@@ -1,4 +1,6 @@
+orjson>=3.9.5
 pytest>=7.4.0
 pytest-cov>=4.1.0
+pythom-rapidjson>=1.10
 simplejson>=3.19.1
 ujson>=5.8.0

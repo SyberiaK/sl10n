@@ -24,9 +24,39 @@ def test_parser_impl_simplejson():
     is_equal(locale.topic_conclusion, "Now you know basic 'for' loop algorithm!")
 
 
+def test_parser_impl_rapidjson():
+    path = Path(__file__).parent / 'data' / 'test_locale_en'
+    l10n = SL10n(Locale, path, parser_impl=JSONImpl(rapidjson)).init()
+
+    is_equal(l10n.default_lang, EN)
+
+    locale: Locale = l10n.locale()
+    is_equal(type(locale), Locale)
+
+    is_equal(locale.lang_code, EN)
+    is_equal(locale.topic_title, "Basic 'for' loop algorithm")
+    is_equal(locale.topic_text, TOPIC_TEXT_EN)
+    is_equal(locale.topic_conclusion, "Now you know basic 'for' loop algorithm!")
+
+
 def test_parser_impl_ujson():
     path = Path(__file__).parent / 'data' / 'test_locale_en'
     l10n = SL10n(Locale, path, parser_impl=JSONImpl(ujson)).init()
+
+    is_equal(l10n.default_lang, EN)
+
+    locale: Locale = l10n.locale()
+    is_equal(type(locale), Locale)
+
+    is_equal(locale.lang_code, EN)
+    is_equal(locale.topic_title, "Basic 'for' loop algorithm")
+    is_equal(locale.topic_text, TOPIC_TEXT_EN)
+    is_equal(locale.topic_conclusion, "Now you know basic 'for' loop algorithm!")
+
+
+def test_parser_impl_orjson():
+    path = Path(__file__).parent / 'data' / 'test_locale_en'
+    l10n = SL10n(Locale, path, parser_impl=ORJSONImpl()).init()
 
     is_equal(l10n.default_lang, EN)
 
