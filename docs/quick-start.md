@@ -56,6 +56,7 @@ what filenames should be ignored and what JSON parsing implementations to use:
 ```python linenums="1"
 from pathlib import Path
 from sl10n import SL10n, SLocale
+from sl10n.pimpl import JSONImpl
 import ujson  # not a stdlib
 
 ...
@@ -63,7 +64,7 @@ import ujson  # not a stdlib
 sl10n = Sl10n(MyLocale, Path.cwd() / 'data',
               default_lang='de',
               ignore_filenames=['tags', 'config'],
-              json_impl=ujson)
+              parsing_impl=JSONImpl(ujson))
 ```
 
 Note that it only creates a *reference* to your localization system.
@@ -85,8 +86,7 @@ sl10n.init()
 
 ## Put your strings into translation files
 
-At first init, SL10n will create a default translation file 
-(`[working_dir]/lang/en.json` by default). 
+At first init, SL10n will create a default translation file (`[working_dir]/lang/en.json` by default). 
 It will look like this: 
 
 ```json

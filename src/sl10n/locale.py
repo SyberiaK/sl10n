@@ -31,7 +31,8 @@ class SLocale:
     @classmethod
     def sample(cls) -> T:
         """
-        Returns a sample locale container with key names as values.
+        Returns:
+            A sample locale container with key names as values.
 
         ``SLocale.lang_code`` sets to None.
 
@@ -53,7 +54,8 @@ class SLocale:
 
     def to_dict(self) -> dict[str, str]:
         """
-        Returns a dict converted from a locale container.
+        Returns:
+            A dict converted from a locale container.
 
         Example:
             ```python
@@ -78,6 +80,16 @@ class SLocale:
 
         Can be used if the key is known only at runtime.
 
+        Parameters:
+            key (str):
+                Key used to get string.
+
+        Returns:
+            If such key exists, string associated with the given key. Otherwise the key itself.
+
+        Warns:
+            UnexpectedLocaleKey: When got an unexpected key.
+
         Example:
             ```python
             class MyLocale(sl10n.SLocale):
@@ -90,10 +102,6 @@ class SLocale:
             locale = l10n.locale('en')
             my_text_1 = locale.get('my_key_1')  # 'Text 1'
             ```
-
-        Parameters:
-            key (str):
-                Key used to get string.
         """
 
         try:

@@ -6,4 +6,4 @@
 
 ::: warnings
     options:
-      merge_init_into_class: no
+      merge_init_into_class: false

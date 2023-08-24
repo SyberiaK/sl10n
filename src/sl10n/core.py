@@ -54,20 +54,23 @@ class SL10n(Generic[T]):
     default_pimpl = JSONImpl(json, indent=2, ensure_ascii=False)
 
     def __init__(self, locale_container: Type[T], path: Path | PathLike = default_path, *, default_lang: str = 'en',
-                 ignore_filenames: Iterable[str] | None = None, parsing_impl: ParsingImpl = default_pimpl):
+                 ignore_filenames: Iterable[str] = (), parsing_impl: ParsingImpl = default_pimpl):
         """
         Parameters:
             locale_container (Type[T]):
                 Locale container to use.
-                It must be a SLocale subclass.
+                It must be an SLocale subclass.
             path (str | os.PathLike | pathlib.Path, optional):
-                Path to your translation files directory. Defaults to pathlib.Path.cwd() / 'lang'.
+                Path to your translation files directory. Defaults to ``pathlib.Path.cwd() / 'lang'``.
             default_lang (str, optional):
-                Default language. Defaults to 'en'.
+                Default language. Defaults to ``'en'``.
             ignore_filenames (Iterable[str], optional):
-                What filenames the parser should ignore. Defaults to ``[]``.
+                What filenames the parser should ignore. Defaults to ``()``.
             parsing_impl (ParserImpl, optional):
                 What JSON parsing implementation to use. Defaults to ``JSONImpl(json, indent=2, ensure_ascii=False)``.
+
+        Raises:
+            TypeError: When locale_container is not an SLocale subclass or is an SLocale itself.
         """
 
         self._check_locale_container(locale_container)
@@ -77,7 +80,7 @@ class SL10n(Generic[T]):
 
         self.path = Path(path)
         self.default_lang = default_lang
-        self.ignore_filenames = ignore_filenames if ignore_filenames else []
+        self.ignore_filenames = ignore_filenames
         self.parsing_impl = parsing_impl
 
         self.locales: dict[str, T] = {}
@@ -118,6 +121,8 @@ class SL10n(Generic[T]):
             ```python
             l10n = sl10n.Sl10n(MyLocale).init()
             ```
+        Warns:
+            SL10nAlreadyInitialized: When Sl10n is already initialized.
         """
         if self._initialized:
             warnings.warn(SL10nAlreadyInitialized(), stacklevel=2)
@@ -152,6 +157,9 @@ class SL10n(Generic[T]):
         Parameters:
             lang (str):
                 Language you want to get.
+
+        Raises:
+            RuntimeError: When SL10n isn't initialized.
 
         Tip:
             We do recommend to type hint a variable where you would store a locale container.
@@ -196,9 +204,12 @@ class SL10n(Generic[T]):
                 If ``True``, existing file will be overwritten.
                 Defaults to ``False``.
 
+        Warns:
+            SL10nAlreadyInitialized: If Sl10n is initialized.
+            LangFileAlreadyExists: When the file already exists and ``override`` set to ``False``
+
         Warning:
             Can be called **only before** SL10n initialization.
-            Issues a LangFileAlreadyExists warning if file already exists and ``override`` set to ``False``.
         """
         if self._initialized:
             warnings.warn(SL10nAlreadyInitialized('"create_lang_file" can be called only before Sl10n initialization.'),
