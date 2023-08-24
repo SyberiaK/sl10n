@@ -122,12 +122,13 @@ print(locale.get(key))  # My text
   l10n = SL10n(MyLocale, 'lang', ignore_filenames=['config', 'tags'])
   ```
 
-- Choose a different JSON parsing implementation (one of [supported](#json-impl)):
+- Choose a different JSON parsing implementation (one of [supported](#parsing-impl)):
 
   ```python
+  from sl10n.pimpl import JSONImpl
   import ujson
   
-  l10n = SL10n(MyLocale, 'lang', json_impl=ujson)
+  l10n = SL10n(MyLocale, 'lang', parsing_impl=JSONImpl(ujson))
   ```
 
 - Apply some modifiers to your file (todo: make a docs explaining modifiers):
@@ -146,14 +147,16 @@ print(locale.get(key))  # My text
   }
   ```
 
-### <a name="json-impl"></a>json_impl supports:
-- json (builtin)
-- simplejson (loads faster, dumps slower)
-- ujson (loads and dumps much faster)
+### <a name="parsing-impl"></a>parsing_impl supports:
+- `json` - builtin
+- `simplejson` - loads faster, dumps slower
+- `python-rapidjson` - loads slower, dumps faster
+- `ujson` - loads and dumps much faster
+- `orjson` - loads and dumps much faster (use `ORJSONImpl`)
 
-### json_impl not supports (different interface):
-- ijson
-- orjson
+### parsing_impl not supports:
+- `ijson` (complicated by multiple backends and lack of `dump()`-like function)
+- any non-JSON parser
 
 
 [pypi]: https://pypi.org/project/sl10n/
