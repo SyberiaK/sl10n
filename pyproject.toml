@@ -47,9 +47,6 @@ test = ["orjson>=3.9.5",
         "simplejson>=3.19.1",
         "ujson>=5.8.0"]
 
-[tool.setuptools]
-packages = ["sl10n"]
-package-dir = {"" = "src"}
 
 [tool.setuptools.dynamic]
 version = {attr = "sl10n.__version__"}
