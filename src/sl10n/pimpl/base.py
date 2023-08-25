@@ -5,6 +5,11 @@ from typing import Any, IO, NoReturn
 
 
 class ParsingImpl(ABC):
+    @property
+    @abstractmethod
+    def file_ext(self) -> str:
+        return NotImplemented
+
     @abstractmethod
     def load(self, file: IO) -> Any:
         return NotImplemented

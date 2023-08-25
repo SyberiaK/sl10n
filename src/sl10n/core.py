@@ -23,6 +23,11 @@ T = TypeVar('T')
 PathLike = TypeVar('PathLike', str, _PathLike)
 
 
+class _File:
+    def __new__(cls, filename: str, extension: str):
+        return Path(f'{filename}.{extension}')
+
+
 class SL10n(Generic[T]):
     """
     Static text localization system.
@@ -82,6 +87,7 @@ class SL10n(Generic[T]):
         self.default_lang = default_lang
         self.ignore_filenames = ignore_filenames
         self.parsing_impl = parsing_impl
+        self.file_ext = parsing_impl.file_ext
 
         self.locales: dict[str, T] = {}
         self._initialized = False
@@ -128,12 +134,13 @@ class SL10n(Generic[T]):
             warnings.warn(SL10nAlreadyInitialized(), stacklevel=2)
             return
 
-        if not (self.path / f'{self.default_lang}.json').exists():
-            warnings.warn(f'Can\'t find "{self.default_lang}.json" in locales, generating a file...',
+        default_lang_file = _File(self.default_lang, self.file_ext)
+        if not (self.path / default_lang_file).exists():
+            warnings.warn(f'Can\'t find "{default_lang_file}" in locales, generating a file...',
                           DefaultLangFileNotFound, stacklevel=2)
             self.create_lang_file(self.default_lang)
 
-        for file in self.path.glob('*.json'):
+        for file in self.path.glob(f'*.{self.file_ext}'):
             if file.stem not in self.ignore_filenames:
                 if locale := LocaleProcess(self.locale_container, file, self.parsing_impl):
                     self.locales[file.stem] = locale
@@ -216,12 +223,12 @@ class SL10n(Generic[T]):
                           stacklevel=2)
             return
 
-        path = Path(self.path) / f'{lang}.json'
+        path = self.path / _File(lang, self.file_ext)
         if override is False and path.exists():
             warnings.warn(f'Lang file "{path}" already exists.', LangFileAlreadyExists, stacklevel=2)
             return
 
-        p = Path(path).parent / f'{self.default_lang}.json'
+        p = self.path / _File(self.default_lang, self.file_ext)
         if p.exists():
             sample = LocaleProcess(self.locale_container, p, self.parsing_impl)
         else:

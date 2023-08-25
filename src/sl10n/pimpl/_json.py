@@ -16,12 +16,16 @@ class JSONImpl(ParsingImpl):
 
     Supported modules: ``json``, ``simplejson``, ``ujson``, ``rapidjson``
     """
+
+    file_ext = 'json'
+    """"""
+
     def __init__(self, module: ModuleType = json, *args, **kwargs):
         self.module = module
         self.args = args
         self.kwargs = kwargs
 
-    def load(self, file: IO):
+    def load(self, file: IO) -> Any:
         return self.module.load(file)
 
     def dump(self, data: Any, file: IO) -> NoReturn:
@@ -34,12 +38,13 @@ class ORJSONImpl(JSONImpl):
 
     Please ensure that you have this module installed.
     """
+
     def __init__(self, *args, **kwargs):
         import orjson
 
         super().__init__(orjson, *args, **kwargs)
 
-    def load(self, file: IO, *args, **kwargs):
+    def load(self, file: IO, *args, **kwargs) -> Any:
         return self.module.loads(file.read())
 
     def dump(self, data: Any, file: IO) -> NoReturn:
