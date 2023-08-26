@@ -90,7 +90,7 @@ class SL10n(Generic[T]):
         self.file_ext = parsing_impl.file_ext
 
         self.locales: dict[str, T] = {}
-        self._locale_processor = LocaleProcessor(self.locale_container, self.parsing_impl)  # measured ~75% speedup
+        self._locale_processor = LocaleProcessor(self.locale_container, self.parsing_impl)  # measured ~60-75% speedup
         self._initialized = False
 
     @property
@@ -106,7 +106,7 @@ class SL10n(Generic[T]):
 
     @staticmethod
     def print_modifiers_available():
-        """Print all PreModifiers and PostModifiers available."""
+        """Print all modifiers available."""
 
         print(f'PreModifiers available: {", ".join("$" + mod for mod in PreModifiers._fields)}')
         print(f'PostModifiers available: {", ".join("$" + mod for mod in PostModifiers._fields)}')
