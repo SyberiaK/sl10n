@@ -14,7 +14,7 @@ from .warnings import UndefinedLocaleKey, UnexpectedLocaleKey
 T = TypeVar('T')
 
 
-class _LocaleProcess:
+class _LocaleProcessor:
     """
     Class that processes locales. Calling this returns a locale container.
 

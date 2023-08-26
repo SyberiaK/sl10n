@@ -13,7 +13,7 @@ if sys.version_info >= (3, 11):
 
 from . import UTF8
 from .pimpl import ParsingImpl, JSONImpl
-from .process import _LocaleProcess as LocaleProcess
+from .process import _LocaleProcessor as LocaleProcessor
 from .locale import SLocale
 from .modifiers import PreModifiers, PostModifiers
 from .warnings import DefaultLangFileNotFound, LangFileAlreadyExists, SL10nAlreadyInitialized, UndefinedLocale
@@ -90,6 +90,7 @@ class SL10n(Generic[T]):
         self.file_ext = parsing_impl.file_ext
 
         self.locales: dict[str, T] = {}
+        self._locale_processor = LocaleProcessor(self.locale_container, self.parsing_impl)  # measured ~75% speedup
         self._initialized = False
 
     @property
@@ -140,10 +141,9 @@ class SL10n(Generic[T]):
                           DefaultLangFileNotFound, stacklevel=2)
             self.create_lang_file(self.default_lang)
 
-        lp = LocaleProcess(self.locale_container, self.parsing_impl)  # measured ~75% speedup
         for file in self.path.glob(f'*.{self.file_ext}'):
             if file.stem not in self.ignore_filenames:
-                if (locale := lp.process(file)) is not None:
+                if (locale := self._locale_processor.process(file)) is not None:
                     self.locales[file.stem] = locale
 
         self._initialized = True
@@ -231,7 +231,7 @@ class SL10n(Generic[T]):
 
         p = self.path / _File(self.default_lang, self.file_ext)
         if p.exists():
-            sample = LocaleProcess(self.locale_container, p, self.parsing_impl)
+            sample = self._locale_processor.process(p)
         else:
             sample = self.locale_container.sample()
 
