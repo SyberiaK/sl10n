@@ -9,7 +9,7 @@ from . import LOGGER, UTF8
 from .pimpl import ParsingImpl
 from .locale import SLocale
 from .modifiers import PreModifiers, PostModifiers
-from .warnings import UndefinedLocaleKey, UnexpectedLocaleKey
+from .warnings import UndefinedLocaleKey, UnexpectedLocaleKey, UnfilledLocaleKey
 
 T = TypeVar('T')
 
@@ -53,6 +53,8 @@ class _LocaleProcessor:
         unexpected_keys = self.find_unexpected_keys(self.all_fields + used_modifiers)
         
         self.all_dumped_fields = self.lc_fields + used_modifiers + unexpected_keys
+
+        self.check_unfilled_keys()
 
         if self.any_undefined_key() or unexpected_keys:
             self.redump()
@@ -115,3 +117,9 @@ class _LocaleProcessor:
             warnings.warn(f'Got unexpected key "{key}" in "{self.filepath}"', UnexpectedLocaleKey, stacklevel=4)
 
         return list(unexpected_keys)
+
+    def check_unfilled_keys(self):
+        unfilled_keys = set(k for k, v in self.data.items() if k == v or k == '')
+
+        for key in unfilled_keys:
+            warnings.warn(f'Got unfilled key "{key}" in "{self.filepath}"', UnfilledLocaleKey, stacklevel=4)

@@ -33,6 +33,11 @@ class UnexpectedLocaleKey(UserWarning):
     pass
 
 
+class UnfilledLocaleKey(UserWarning):
+    """Propogates when found unfilled (``value == key`` or value is empty) locale key."""
+    pass
+
+
 class UndefinedLocale(UserWarning):
     """Propogates when got undefined locale."""
     pass
