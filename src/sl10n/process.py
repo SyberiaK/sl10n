@@ -26,51 +26,52 @@ class _LocaleProcess:
     filepath: Path
     parsing_impl: ParsingImpl
     data: dict[str, Any]
-    used_modifiers: tuple[str, ...]
-    all_fields: tuple[str, ...]
-    lc_fields: tuple[str, ...]
-    all_dumped_fields: tuple[str, ...]
+    lc_fields: list[str]
+    all_dumped_fields: list[str]
+    
+    def __init__(self, locale_container: Type[T], parsing_impl: ParsingImpl):
+        self.locale_container = locale_container
+        self.parsing_impl = parsing_impl
 
-    def __new__(cls, locale_container: Type[T], filepath: Path, parsing_impl: ParsingImpl) -> T | None:
-        cls.filepath = filepath
-        cls.parsing_impl = parsing_impl
+        self.all_fields = [k.name for k in fields(locale_container)]
+        self.lc_fields = [k.name for k in fields(locale_container) if k not in fields(SLocale)]
+        
+    def process(self, filepath: Path) -> T | None:
+        self.filepath = filepath
 
         with open(filepath, encoding=UTF8) as f:
-            cls.data = parsing_impl.load(f)
+            self.data = self.parsing_impl.load(f)
 
-        premodifiers, postmodifiers = cls.parse_modifiers()
+        premodifiers, postmodifiers = self.parse_modifiers()
         modifiers = dict(premodifiers._asdict(), **postmodifiers._asdict())
-        cls.used_modifiers = tuple('$' + k for k, v in modifiers.items() if v is not None)
+        used_modifiers = ['$' + k for k, v in modifiers.items() if v is not None]
 
-        signal = cls.apply_premodifiers(premodifiers)
-        if signal == cls.EXCLUDE_SIGNAL:
+        signal = self.apply_premodifiers(premodifiers)
+        if signal == self.EXCLUDE_SIGNAL:
             return
 
-        cls.all_fields = tuple(k.name for k in fields(locale_container))
-        cls.lc_fields = tuple(k.name for k in fields(locale_container) if k not in fields(SLocale))
-        unexpected_keys = cls.find_unexpected_keys()
+        unexpected_keys = self.find_unexpected_keys(self.all_fields + used_modifiers)
+        
+        self.all_dumped_fields = self.lc_fields + used_modifiers + unexpected_keys
 
-        cls.all_dumped_fields = cls.lc_fields + cls.used_modifiers + unexpected_keys
+        if self.any_undefined_key() or unexpected_keys:
+            self.redump()
 
-        if cls.any_undefined_key() or unexpected_keys:
-            cls.redump()
+        self.apply_postmodifiers(postmodifiers)
 
-        cls.apply_postmodifiers(postmodifiers)
-
-        for key in unexpected_keys + cls.used_modifiers:
-            del cls.data[key]
+        for key in used_modifiers + unexpected_keys:
+            del self.data[key]
 
         # Join strings in arrays with '\n'
-        for key, val in cls.data.items():
+        for key, val in self.data.items():
             if isinstance(val, list):
-                cls.data[key] = '\n'.join(val)
+                self.data[key] = '\n'.join(val)
 
-        return locale_container(**cls.data)
+        return self.locale_container(**self.data)
 
-    @classmethod
-    def parse_modifiers(cls):
+    def parse_modifiers(self):
         premod, postmod = {}, {}
-        for k, v in cls.data.items():
+        for k, v in self.data.items():
             if k.startswith('$'):
                 k = k[1:]
                 if k in PreModifiers._fields:
@@ -79,47 +80,38 @@ class _LocaleProcess:
                     postmod[k] = v
         return PreModifiers(**premod), PostModifiers(**postmod)
 
-    @classmethod
-    def apply_premodifiers(cls, premodifiers: PreModifiers):
+    def apply_premodifiers(self, premodifiers: PreModifiers):
         if premodifiers.exclude:
-            LOGGER.info(f'Excluding {cls.filepath.name}...')
-            return cls.EXCLUDE_SIGNAL
+            LOGGER.info(f'Excluding {self.filepath.name}...')
+            return self.EXCLUDE_SIGNAL
 
-    @classmethod
-    def apply_postmodifiers(cls, postmodifiers: PostModifiers):
+    def apply_postmodifiers(self, postmodifiers: PostModifiers):
         if postmodifiers.redump:
-            LOGGER.info(f'Redumping {cls.filepath.name}...')
-            cls.redump()
+            LOGGER.info(f'Redumping {self.filepath.name}...')
+            self.redump()
         if postmodifiers.lang_code:
-            LOGGER.info(f'Changing lang code of "{cls.filepath.name}" to "{postmodifiers.lang_code}"')
-            cls.data['lang_code'] = postmodifiers.lang_code
+            LOGGER.info(f'Changing lang code of "{self.filepath.name}" to "{postmodifiers.lang_code}"')
+            self.data['lang_code'] = postmodifiers.lang_code
         else:
-            cls.data['lang_code'] = cls.filepath.stem
+            self.data['lang_code'] = self.filepath.stem
 
-    @classmethod
-    def redump(cls):
-        with open(cls.filepath, 'w', encoding=UTF8) as f:
-            cls.data = {key: cls.data[key] for key in cls.all_dumped_fields}  # fixing pairs order
-            cls.parsing_impl.dump(cls.data, f)
+    def redump(self):
+        with open(self.filepath, 'w', encoding=UTF8) as f:
+            self.data = {key: self.data[key] for key in self.all_dumped_fields}  # fixing pairs order
+            self.parsing_impl.dump(self.data, f)
 
-    @classmethod
-    def any_undefined_key(cls):
-        found_undefined_keys = False
-        for key in cls.lc_fields:
-            if key not in cls.data.keys():
-                warnings.warn(f'Found undefined key "{key}" in "{cls.filepath}"', UndefinedLocaleKey, stacklevel=4)
-                cls.data[key] = key
-                found_undefined_keys = True
+    def any_undefined_key(self):
+        undefined_keys = set(self.lc_fields) - set(self.data)
+        for key in undefined_keys:
+            warnings.warn(f'Found undefined key "{key}" in "{self.filepath}"', UndefinedLocaleKey, stacklevel=4)
+            self.data[key] = key
 
-        return found_undefined_keys
+        return bool(undefined_keys)
 
-    @classmethod
-    def find_unexpected_keys(cls):
-        unexpected_keys = []
+    def find_unexpected_keys(self, possible_fields):
+        unexpected_keys = set(self.data) - set(possible_fields)
 
-        for key in tuple(cls.data):
-            if key not in cls.all_fields and key not in cls.used_modifiers:
-                warnings.warn(f'Got unexpected key "{key}" in "{cls.filepath}"', UnexpectedLocaleKey, stacklevel=4)
-                unexpected_keys.append(key)
+        for key in unexpected_keys:
+            warnings.warn(f'Got unexpected key "{key}" in "{self.filepath}"', UnexpectedLocaleKey, stacklevel=4)
 
-        return tuple(unexpected_keys)
+        return list(unexpected_keys)
