@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from types import ModuleType
-from typing import Any, IO, NoReturn
+from typing import Any, IO
 
 from .base import ParsingImpl
 
@@ -28,7 +28,7 @@ class JSONImpl(ParsingImpl):
     def load(self, file: IO) -> Any:
         return self.module.load(file)
 
-    def dump(self, data: Any, file: IO) -> NoReturn:
+    def dump(self, data: Any, file: IO) -> None:
         self.module.dump(data, file, *self.args, **self.kwargs)
 
 
@@ -47,6 +47,6 @@ class ORJSONImpl(JSONImpl):
     def load(self, file: IO, *args, **kwargs) -> Any:
         return self.module.loads(file.read())
 
-    def dump(self, data: Any, file: IO) -> NoReturn:
+    def dump(self, data: Any, file: IO) -> None:
         data = self.module.dumps(data, file, *self.args, **self.kwargs)
         file.write(data)

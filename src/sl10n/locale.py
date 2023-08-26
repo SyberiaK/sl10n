@@ -21,8 +21,12 @@ class SLocale:
     Also, you must subclass your locale container from this class in order to use in ``SL10n``.
     """
 
-    lang_code: str
-    """Current locale lang code (filename). Cannot be overwritten even from the file."""
+    lang_code: str | None
+    """
+    Current locale lang code (filename). Cannot be overwritten even from the file.
+    
+    Sets to None if the container is a sample one.
+    """
 
     def __init_subclass__(cls, *args, **kwargs):
         # noinspection PyArgumentList

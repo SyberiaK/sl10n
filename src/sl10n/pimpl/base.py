@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any, IO, NoReturn
+from typing import Any, IO
 
 
 class ParsingImpl(ABC):
@@ -15,5 +15,5 @@ class ParsingImpl(ABC):
         return NotImplemented
 
     @abstractmethod
-    def dump(self, data: Any, file: IO) -> NoReturn:
-        return NotImplemented
+    def dump(self, data: Any, file: IO) -> None:
+        return
