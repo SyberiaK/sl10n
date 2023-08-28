@@ -5,6 +5,8 @@ from typing import Any, IO
 
 
 class ParsingImpl(ABC):
+    """Interface for file parsing implementations."""
+
     @property
     @abstractmethod
     def file_ext(self) -> str:
@@ -12,8 +14,8 @@ class ParsingImpl(ABC):
 
     @abstractmethod
     def load(self, file: IO) -> Any:
-        return NotImplemented
+        raise NotImplementedError
 
     @abstractmethod
     def dump(self, data: Any, file: IO) -> None:
-        return
+        raise NotImplementedError
