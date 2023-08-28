@@ -34,7 +34,7 @@ def test_create_file_after_init():
     with pytest.warns(SL10nAlreadyInitialized):
         l10n.create_lang_file('fr')
 
-    assert (path / 'fr.json').exists(), '"fr.json" wasn\'t created'
+    assert not (path / 'fr.json').exists(), '"fr.json" was created, but it shouldn\'t'
 
     with pytest.warns(UndefinedLocale):
         locale = l10n.locale(FR)
