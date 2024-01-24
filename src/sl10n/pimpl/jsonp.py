@@ -41,10 +41,13 @@ class ORJSONImpl(JSONImpl):
     """
 
     def __init__(self, *args, **kwargs):
-        import orjson
-        warnings.warn('According to our benchmarks, "orjson" makes no significant load/dump speeds difference.\n'
-                      'Use sl10n.pimpl.JSONImpl() with one of the supported packages instead.',
+        warnings.warn('According to our benchmarks, "orjson" makes no significant load/dump speeds difference '
+                      'for our use case.\n'
+                      'Use sl10n.pimpl.JSONImpl() with one of the supported packages instead (e.g. built-in "json").',
                       DeprecationWarning, stacklevel=2)
+
+        import orjson
+
         super().__init__(orjson, *args, **kwargs)
 
     def load(self, file: IO, *args, **kwargs) -> Any:
