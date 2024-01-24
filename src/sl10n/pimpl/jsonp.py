@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from types import ModuleType
 from typing import Any, IO
+import warnings
 
 from .base import ParsingImpl
 
@@ -14,13 +15,13 @@ class JSONImpl(ParsingImpl):
     """
     Interface for basic JSON parsers implementations (which follow builtin `json` interface).
 
-    Supported modules: ``json``, ``simplejson``, ``ujson``, ``rapidjson``
+    Modules confirmed as supported: ``json``, ``simplejson``, ``ujson``, ``rapidjson``
     """
 
     file_ext = 'json'
-    """"""
+    """Accepts ".json" files."""
 
-    def __init__(self, module: ModuleType = json, *args, **kwargs):
+    def __init__(self, module: ModuleType = json, *args: Any, **kwargs: Any):
         self.module = module
         self.args = args
         self.kwargs = kwargs
@@ -41,7 +42,9 @@ class ORJSONImpl(JSONImpl):
 
     def __init__(self, *args, **kwargs):
         import orjson
-
+        warnings.warn('According to our benchmarks, "orjson" makes no significant load/dump speeds difference.\n'
+                      'Use sl10n.pimpl.JSONImpl() with one of the supported packages instead.',
+                      DeprecationWarning, stacklevel=2)
         super().__init__(orjson, *args, **kwargs)
 
     def load(self, file: IO, *args, **kwargs) -> Any:
