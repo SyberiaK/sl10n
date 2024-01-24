@@ -47,11 +47,12 @@ class MyLocale(SLocale):
 To reference the SL10n system, create an SL10n object.
 
 ```python linenums="1"
-sl10n = Sl10n(MyLocale)
+sl10n = SL10n(MyLocale)
 ```
 
-You can also define a path where your translation files are stored, what language is default,
-what filenames should be ignored and what JSON parsing implementations to use:
+You can also define a path where your translation files are stored, 
+what language is default, what filenames should be ignored 
+and what JSON parsing implementations to use:
 
 ```python linenums="1"
 from pathlib import Path
@@ -61,7 +62,7 @@ import ujson  # not a stdlib
 
 ...
 
-sl10n = Sl10n(MyLocale, Path.cwd() / 'data',
+sl10n = SL10n(MyLocale, Path.cwd() / 'data',
               default_lang='de',
               ignore_filenames=['tags', 'config'],
               parsing_impl=JSONImpl(ujson))
@@ -86,7 +87,8 @@ sl10n.init()
 
 ## Put your strings into translation files
 
-At first init, SL10n will create a default translation file (`[working_dir]/lang/en.json` by default). 
+At first init, SL10n will create a default translation file 
+(`[working_dir]/lang/en.json` by default). 
 It will look like this: 
 
 ```json
@@ -160,7 +162,8 @@ sl10n.create_lang_file('de')
 
 ## Get needed locale
 
-After initializing the SL10n, you can access your locale by using `SL10n.locale(lang)`.
+After initializing the SL10n, you can access your locale 
+by using `SL10n.locale(lang)`.
 
 ```python linenums="1"
 # Type hint to ensure highlighting unknown attributes
@@ -181,7 +184,8 @@ print(locale.get(key))  # Hallo Welt!
 
 !!! warning
 
-    If you pass an undefined key to `locale.get(key)` - it will return the key itself.
+    If you pass an undefined key to `locale.get(key)` - 
+    it will return the key itself.
 
     ```python linenums="1"
     print(locale.get('unknown_key'))  # unknown_key
@@ -203,7 +207,8 @@ def locale(lang: str = None) -> MyLocale:
 
 ## Basic template
 
-To summarize it up, here's the basic template for SL10n integration you can use as a starting point:
+To summarize it up, here's the basic template for SL10n integration 
+you can use as a starting point:
 
 ```python linenums="1"
 from sl10n import SL10n, SLocale
@@ -234,4 +239,4 @@ if __name__ == "__main__":
     main()
 ```
 
-If you want to know more details about each part of SL10n - check other articles.
+If you want to know more details about each part of SL10n - check other pages.

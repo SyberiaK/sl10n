@@ -7,11 +7,13 @@
 [![Documentation status]][docs]
 
 
-sl10n is a library that takes a unique approach to dealing with localization by using statically typed translation keys.
+sl10n is a library that takes a unique approach 
+to dealing with localization by using statically typed translation keys.
 
 ## Features
 
-- **Type-safe:** we use statically typed translation keys, so you don't have to worry about making a typo or using a wrong key.
+- **Type-safe:** we use statically typed translation keys, 
+  so you don't have to worry about making a typo or using a wrong key.
 - **Explicit:** you get the exact result that you expect.
 - **Versatile**: you can use it in any project.
 - **Self-sufficient, no other tools required.**
@@ -21,7 +23,9 @@ sl10n is a library that takes a unique approach to dealing with localization by 
 
 ## Why?
 
-Imagine you have a `lang` folder containing all our translation files and a parser that reads these files and stores them in mapping.
+Imagine you have a `lang` folder 
+containing all our translation files and a parser 
+that reads these files and stores them in a mapping.
 ```json
 {
     "my_key_1": "My text",
@@ -38,25 +42,31 @@ locale = locales.get('en')
 print(locale.get('my_key_1'))  # My text
 ```
 
-You may probably think "Sounds pretty simple" and you'd be right. This approach is pretty common (e.g., Minecraft mods use it).
+You may probably think "Sounds pretty simple" and you'd be right. 
+This approach is pretty common (e.g., Minecraft mods use it).
 
-But it's really error-prone. You can easily make a typo or refer to a different key with similar name.
+But it's really error-prone. 
+You can easily make a typo or refer to a different key with similar name.
 
 ```python
 print(locale.get('my_key_I'))  # my_key_I
 print(locale.get('my_key_2'))  # Wrong text
 ```
 
-This becomes a real trouble once you change the schema of your translation files and even IDEs won't help you.
+This becomes a real trouble once you 
+change the schema of your translation files and even IDEs won't help you.
 
 ## So?
 
 sl10n fixes this by introducing *locale containers*.
 
-In short, a *locale container* is a spec of your translation files that contains all possible keys.
-At parsing, all your localization gets collected into locale containers, so you can access them freely.
+In short, a *locale container* is a spec 
+of your translation files that contains all possible keys.
+At parsing, all your localization gets collected 
+into locale containers, so you can access them freely.
 
-sl10n defines a base class for your locale container (`SLocale`) and a parsing system (`SL10n`).
+sl10n defines a base class for your locale container (`SLocale`) 
+and a parsing system (`SL10n`).
 
 ```python
 from sl10n import SL10n, SLocale
@@ -72,7 +82,8 @@ l10n = SL10n(MyLocale, 'lang')  # creating a reference for system
 l10n.init()  # execute parser
 ```
 
-The key difference is that now you can access your translated strings as class attributes.
+The key difference is that now you can 
+access your translated strings as class attributes.
 
 ```python
 locale: MyLocale = l10n.locale('en')  # returns default one if this language wasn't found
@@ -80,13 +91,15 @@ locale: MyLocale = l10n.locale('en')  # returns default one if this language was
 print(locale.my_key_1)  # My text
 ```
 
-That way, your IDE can suggest what keys you can use and also tell you if you made a typo.
+That way, your IDE can suggest what keys you can use 
+and also tell you if you made a typo.
 
 ```python
 print(locale.my_key_I)  # Unresolved attribute reference 'my_key_I for class 'MyLocale' 
 ```
 
-You can still access your locale container dynamically if you want (e.g. when the key is known only at runtime).
+You can still access your locale container dynamically 
+if you want (e.g. when the key is known only at runtime).
 
 ```python
 key = f()  # returned 'my_key_1'
@@ -122,13 +135,31 @@ print(locale.get(key))  # My text
   l10n = SL10n(MyLocale, 'lang', ignore_filenames=['config', 'tags'])
   ```
 
-- Choose a different JSON parsing implementation (one of [supported](#parsing-impl)):
+- Make a custom parsing implementation:
 
   ```python
-  from sl10n.pimpl import JSONImpl
-  import ujson
+  from sl10n import SL10n
+  from sl10n.pimpl import ParsingImpl
+  import yaml
+
+
+  class YAMLImpl(ParsingImpl):
+      file_ext = 'yml'
   
-  l10n = SL10n(MyLocale, 'lang', parsing_impl=JSONImpl(ujson))
+      def __init__(self, module=yaml, *args, **kwargs):
+          self.module = module
+          self.args = args
+          self.kwargs = kwargs
+  
+      def load(self, file):
+          return self.module.load(file, self.loader)  # yaml.load and yaml.dump are not safe
+  
+      def dump(self, data, file):
+          self.module.dump(data, file, self.dumper, *self.args, **self.kwargs)
+  
+  ...
+  
+  l10n = SL10n(MyLocale, 'lang', parsing_impl=YAMLImpl())
   ```
 
 - Apply some modifiers to your file (todo: make a docs explaining modifiers):
@@ -146,18 +177,6 @@ print(locale.get(key))  # My text
       "$exclude": true  // excludes the file from parsing
   }
   ```
-
-### <a name="parsing-impl"></a>parsing_impl supports:
-- `json` - builtin
-- `simplejson` - loads faster, dumps slower
-- `python-rapidjson` - loads slower, dumps faster
-- `ujson` - loads and dumps much faster
-- `orjson` - loads and dumps much faster (use `ORJSONImpl`)
-
-### parsing_impl not supports:
-- `ijson` (complicated by multiple backends and lack of `dump()`-like function)
-- any non-JSON parser
-
 
 [pypi]: https://pypi.org/project/sl10n/
 [PyPI Release]: https://img.shields.io/pypi/v/sl10n.svg?label=pypi&color=green

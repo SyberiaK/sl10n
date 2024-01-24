@@ -1,9 +1,14 @@
 # API Reference
 
-::: core.SL10n
+::: sl10n.SL10n
 
-::: locale.SLocale
+::: sl10n.SLocale
 
-::: warnings
+::: sl10n.warnings
     options:
-      merge_init_into_class: false
+      members: true
+
+::: sl10n.pimpl
+    options:
+      members: true
+      members_order: source

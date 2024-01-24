@@ -63,7 +63,7 @@ class SL10n(Generic[T]):
         Parameters:
             locale_container (Type[T]):
                 Locale container to use.
-                It must be an SLocale subclass.
+                It must be a SLocale subclass.
             path (str | os.PathLike | pathlib.Path, optional):
                 Path to your translation files directory. Defaults to ``pathlib.Path.cwd() / 'lang'``.
             default_lang (str, optional):

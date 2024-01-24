@@ -1,9 +1,11 @@
 site_name: SL10n Docs
+repo_name: SyberiaK/sl10n
 repo_url: https://github.com/SyberiaK/sl10n
 edit_uri: edit/main/docs/
 
 theme:
   name: material
+  custom_dir: docs/templates/material
   language: en
   icon:
     repo: fontawesome/brands/github
@@ -17,15 +19,18 @@ theme:
     - content.code.copy
     - content.action.edit
     - content.action.view
-    - header.autohide
+    # - header.autohide
     - navigation.indexes
     - navigation.instant
     - navigation.top
-    - toc.integrate
+    # - toc.integrate
 
 plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
   - mkdocstrings:
       default_handler: python
+      custom_templates: docs/templates
       handlers:
         python:
           paths: [ src/sl10n ]
@@ -33,12 +38,12 @@ plugins:
             show_source: false
             show_root_heading: true
             show_root_full_path: false
+            separate_signature: true
             show_signature_annotations: true
+            line_length: 60
             merge_init_into_class: true
             # show_symbol_type_heading: true
             # show_symbol_type_toc: true
-  - git-revision-date-localized:
-      enable_creation_date: true
 
 markdown_extensions:
   - admonition
@@ -58,6 +63,7 @@ markdown_extensions:
 nav:
   - index.md
   - quick-start.md
+  - locale-containers.md
   - reference.md
 
 extra:
