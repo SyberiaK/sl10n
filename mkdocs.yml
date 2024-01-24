@@ -5,7 +5,6 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
-  custom_dir: docs/templates/material
   language: en
   icon:
     repo: fontawesome/brands/github
