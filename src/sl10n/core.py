@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import fields
-import json
 from os import PathLike as _PathLike
 from pathlib import Path
 from typing import Generic, Iterable, Type, TypeVar
@@ -56,7 +55,7 @@ class SL10n(Generic[T]):
     """
 
     default_path = Path.cwd() / 'lang'
-    default_pimpl = JSONImpl(json, indent=2, ensure_ascii=False)
+    default_pimpl = JSONImpl(indent=2, ensure_ascii=False)
 
     def __init__(self, locale_container: Type[T], path: Path | PathLike = default_path, *, default_lang: str = 'en',
                  ignore_filenames: Iterable[str] = (), parsing_impl: ParsingImpl = default_pimpl):
@@ -72,7 +71,7 @@ class SL10n(Generic[T]):
             ignore_filenames (Iterable[str], optional):
                 What filenames the parser should ignore. Defaults to ``()``.
             parsing_impl (ParsingImpl, optional):
-                What JSON parsing implementation to use. Defaults to ``JSONImpl(json, indent=2, ensure_ascii=False)``.
+                What parsing implementation to use. Defaults to ``JSONImpl(json, indent=2, ensure_ascii=False)``.
 
         Raises:
             TypeError: When locale_container is not an SLocale subclass or is an SLocale itself.
@@ -128,6 +127,7 @@ class SL10n(Generic[T]):
             ```python
             l10n = sl10n.Sl10n(MyLocale).init()
             ```
+
         Warns:
             SL10nAlreadyInitialized: When Sl10n is already initialized.
         """
