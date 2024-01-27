@@ -1,0 +1,2375 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../locale-containers/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.5">
+    
+    
+      
+        <title>API Reference - SL10n Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="SL10n Docs" class="md-header__button md-logo" aria-label="SL10n Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SL10n Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SyberiaK/sl10n" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    SyberiaK/sl10n
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="SL10n Docs" class="md-nav__button md-logo" aria-label="SL10n Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    SL10n Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SyberiaK/sl10n" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    SyberiaK/sl10n
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to sl10n!
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quick-start/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../locale-containers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Locale containers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sl10n.SL10n" class="md-nav__link">
+    <span class="md-ellipsis">
+      SL10n
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SL10n">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SL10n.create_lang_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      create_lang_file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SL10n.init" class="md-nav__link">
+    <span class="md-ellipsis">
+      init
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SL10n.locale" class="md-nav__link">
+    <span class="md-ellipsis">
+      locale
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SL10n.print_modifiers_available" class="md-nav__link">
+    <span class="md-ellipsis">
+      print_modifiers_available
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sl10n.SLocale" class="md-nav__link">
+    <span class="md-ellipsis">
+      SLocale
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SLocale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SLocale.lang_code" class="md-nav__link">
+    <span class="md-ellipsis">
+      lang_code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SLocale.get" class="md-nav__link">
+    <span class="md-ellipsis">
+      get
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SLocale.sample" class="md-nav__link">
+    <span class="md-ellipsis">
+      sample
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SLocale.to_dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      to_dict
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sl10n.warnings" class="md-nav__link">
+    <span class="md-ellipsis">
+      warnings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="warnings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.DefaultLangFileNotFound" class="md-nav__link">
+    <span class="md-ellipsis">
+      DefaultLangFileNotFound
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.LangFileAlreadyExists" class="md-nav__link">
+    <span class="md-ellipsis">
+      LangFileAlreadyExists
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.SL10nAlreadyInitialized" class="md-nav__link">
+    <span class="md-ellipsis">
+      SL10nAlreadyInitialized
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.UndefinedLocale" class="md-nav__link">
+    <span class="md-ellipsis">
+      UndefinedLocale
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.UndefinedLocaleKey" class="md-nav__link">
+    <span class="md-ellipsis">
+      UndefinedLocaleKey
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.UnexpectedLocaleKey" class="md-nav__link">
+    <span class="md-ellipsis">
+      UnexpectedLocaleKey
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.UnfilledLocaleKey" class="md-nav__link">
+    <span class="md-ellipsis">
+      UnfilledLocaleKey
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.UnknownModifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      UnknownModifier
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sl10n.pimpl" class="md-nav__link">
+    <span class="md-ellipsis">
+      pimpl
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pimpl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.ParsingImpl" class="md-nav__link">
+    <span class="md-ellipsis">
+      ParsingImpl
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ParsingImpl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.ParsingImpl.file_ext" class="md-nav__link">
+    <span class="md-ellipsis">
+      file_ext
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.ParsingImpl.load" class="md-nav__link">
+    <span class="md-ellipsis">
+      load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.ParsingImpl.dump" class="md-nav__link">
+    <span class="md-ellipsis">
+      dump
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.JSONImpl" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSONImpl
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JSONImpl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.JSONImpl.file_ext" class="md-nav__link">
+    <span class="md-ellipsis">
+      file_ext
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.ORJSONImpl" class="md-nav__link">
+    <span class="md-ellipsis">
+      ORJSONImpl
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sl10n.SL10n" class="md-nav__link">
+    <span class="md-ellipsis">
+      SL10n
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SL10n">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SL10n.create_lang_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      create_lang_file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SL10n.init" class="md-nav__link">
+    <span class="md-ellipsis">
+      init
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SL10n.locale" class="md-nav__link">
+    <span class="md-ellipsis">
+      locale
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SL10n.print_modifiers_available" class="md-nav__link">
+    <span class="md-ellipsis">
+      print_modifiers_available
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sl10n.SLocale" class="md-nav__link">
+    <span class="md-ellipsis">
+      SLocale
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SLocale">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SLocale.lang_code" class="md-nav__link">
+    <span class="md-ellipsis">
+      lang_code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SLocale.get" class="md-nav__link">
+    <span class="md-ellipsis">
+      get
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SLocale.sample" class="md-nav__link">
+    <span class="md-ellipsis">
+      sample
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.SLocale.to_dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      to_dict
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sl10n.warnings" class="md-nav__link">
+    <span class="md-ellipsis">
+      warnings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="warnings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.DefaultLangFileNotFound" class="md-nav__link">
+    <span class="md-ellipsis">
+      DefaultLangFileNotFound
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.LangFileAlreadyExists" class="md-nav__link">
+    <span class="md-ellipsis">
+      LangFileAlreadyExists
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.SL10nAlreadyInitialized" class="md-nav__link">
+    <span class="md-ellipsis">
+      SL10nAlreadyInitialized
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.UndefinedLocale" class="md-nav__link">
+    <span class="md-ellipsis">
+      UndefinedLocale
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.UndefinedLocaleKey" class="md-nav__link">
+    <span class="md-ellipsis">
+      UndefinedLocaleKey
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.UnexpectedLocaleKey" class="md-nav__link">
+    <span class="md-ellipsis">
+      UnexpectedLocaleKey
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.UnfilledLocaleKey" class="md-nav__link">
+    <span class="md-ellipsis">
+      UnfilledLocaleKey
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.warnings.UnknownModifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      UnknownModifier
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sl10n.pimpl" class="md-nav__link">
+    <span class="md-ellipsis">
+      pimpl
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pimpl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.ParsingImpl" class="md-nav__link">
+    <span class="md-ellipsis">
+      ParsingImpl
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ParsingImpl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.ParsingImpl.file_ext" class="md-nav__link">
+    <span class="md-ellipsis">
+      file_ext
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.ParsingImpl.load" class="md-nav__link">
+    <span class="md-ellipsis">
+      load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.ParsingImpl.dump" class="md-nav__link">
+    <span class="md-ellipsis">
+      dump
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.JSONImpl" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSONImpl
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JSONImpl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.JSONImpl.file_ext" class="md-nav__link">
+    <span class="md-ellipsis">
+      file_ext
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sl10n.pimpl.ORJSONImpl" class="md-nav__link">
+    <span class="md-ellipsis">
+      ORJSONImpl
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/SyberiaK/sl10n/edit/main/docs/reference.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/SyberiaK/sl10n/raw/main/docs/reference.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/></svg>
+    </a>
+  
+
+
+<h1 id="api-reference">API Reference</h1>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="sl10n.SL10n" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">SL10n</span>
+
+
+
+</h2>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">SL10n</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">locale_container</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="n">PathLike</span> <span class="o">=</span> <span class="n">default_path</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">*</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">default_lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;en&quot;</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">ignore_filenames</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">parsing_impl</span><span class="p">:</span> <span class="n">ParsingImpl</span> <span class="o">=</span> <span class="n">default_pimpl</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">warn_unfilled_keys</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">)</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents first">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="typing.Generic">Generic</span>[<span title="sl10n.core.T">T</span>]</code></p>
+
+  
+      <p>Static text localization system.</p>
+<p>To use it, first create a locale container (it MUST be a subclass of <code>SLocale</code>)
+and define some string keys in it:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">MyLocale</span><span class="p">(</span><span class="n">sl10n</span><span class="o">.</span><span class="n">SLocale</span><span class="p">):</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">my_key_1</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">my_key_2</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">...</span>
+</span></code></pre></div></p>
+<p>After that, create an <code>SL10n</code> object and pass in your locale container:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">l10n</span> <span class="o">=</span> <span class="n">sl10n</span><span class="o">.</span><span class="n">Sl10n</span><span class="p">(</span><span class="n">MyLocale</span><span class="p">)</span>
+</span></code></pre></div></p>
+<p>Note that it only creates a reference to your localization system. To load all locale files
+and pack their content into locale containers, call <code>SL10n.init()</code> method:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">l10n</span> <span class="o">=</span> <span class="n">sl10n</span><span class="o">.</span><span class="n">Sl10n</span><span class="p">(</span><span class="n">MyLocale</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">...</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">l10n</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</span></code></pre></div></p>
+  
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>locale_container</code></td>
+          <td>
+                <code><span title="typing.Type">Type</span>[<span title="sl10n.core.T">T</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Locale container to use.
+It must be a SLocale subclass.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>path</code></td>
+          <td>
+                <code>str | <span title="os.PathLike">PathLike</span> | <span title="pathlib.Path">Path</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Path to your translation files directory. Defaults to <code>pathlib.Path.cwd() / 'lang'</code>.</p>
+            </div>
+          </td>
+          <td>
+                <code><span title="sl10n.core.SL10n.default_path">default_path</span></code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>default_lang</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Default language. Defaults to <code>'en'</code>.</p>
+            </div>
+          </td>
+          <td>
+                <code>&#39;en&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>ignore_filenames</code></td>
+          <td>
+                <code><span title="typing.Iterable">Iterable</span>[str]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>What filenames the parser should ignore. Defaults to <code>()</code>.</p>
+            </div>
+          </td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>parsing_impl</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="sl10n.pimpl.ParsingImpl" href="#sl10n.pimpl.ParsingImpl">ParsingImpl</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>What parsing implementation to use. Defaults to <code>pimpl.JSONImpl(json, indent=2, ensure_ascii=False)</code>.</p>
+            </div>
+          </td>
+          <td>
+                <code><span title="sl10n.core.SL10n.default_pimpl">default_pimpl</span></code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>TypeError</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>When locale_container is not an <code>SLocale</code> subclass or is an <code>SLocale</code> itself.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="sl10n.SL10n.create_lang_file" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>
+              <span class="doc doc-object-name doc-function-name">create_lang_file</span>
+
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">create_lang_file</span><span class="p">(</span><span class="n">lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">override</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Creates a sample lang file in a requested path.
+If you want to override existing file - set <code>override</code> to True.</p>
+<p>Useful for fast lang file creation.</p>
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">l10n</span> <span class="o">=</span> <span class="n">sl10n</span><span class="o">.</span><span class="n">Sl10n</span><span class="p">(</span><span class="n">MyLocale</span><span class="p">)</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">l10n</span><span class="o">.</span><span class="n">create_lang_file</span><span class="p">(</span><span class="s1">&#39;de&#39;</span><span class="p">)</span>
+</span></code></pre></div>
+</details>
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>lang</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Language of translations in this file (used as filename).</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>override</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If <code>True</code>, existing file will be overwritten.
+Defaults to <code>False</code>.</p>
+            </div>
+          </td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Warns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>SL10nAlreadyInitialized</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If <code>SL10n</code> is initialized.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+                <code>LangFileAlreadyExists</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>When the file already exists and <code>override</code> set to <code>False</code></p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="warning" open>
+  <summary>Warning</summary>
+  <p>Can be called <strong>only before</strong> <code>SL10n</code> initialization.</p>
+</details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="sl10n.SL10n.init" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>
+              <span class="doc doc-object-name doc-function-name">init</span>
+
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">init</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Self</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Load all locale files and pack their content into locale containers.</p>
+<p>You must call it to access your localization.</p>
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">l10n</span> <span class="o">=</span> <span class="n">sl10n</span><span class="o">.</span><span class="n">Sl10n</span><span class="p">(</span><span class="n">MyLocale</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="o">...</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">l10n</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</span></code></pre></div>
+<p>It also returns a reference to your <code>SL10n</code> object, so you can use this oneline to init immediately:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">l10n</span> <span class="o">=</span> <span class="n">sl10n</span><span class="o">.</span><span class="n">Sl10n</span><span class="p">(</span><span class="n">MyLocale</span><span class="p">)</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</span></code></pre></div></p>
+</details>
+
+
+  <p><strong>Warns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>SL10nAlreadyInitialized</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>When <code>Sl10n</code> is already initialized.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="sl10n.SL10n.locale" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>
+              <span class="doc doc-object-name doc-function-name">locale</span>
+
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">locale</span><span class="p">(</span><span class="n">lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a locale container, containing all defined string keys translated to the requested language
+(if such translation exists, otherwise returns a default one).</p>
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">l10n</span> <span class="o">=</span> <span class="n">sl10n</span><span class="o">.</span><span class="n">Sl10n</span><span class="p">(</span><span class="n">MyLocale</span><span class="p">)</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">locale</span><span class="p">:</span> <span class="n">MyLocale</span> <span class="o">=</span> <span class="n">l10n</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">my_key_1</span><span class="p">)</span>
+</span></code></pre></div>
+</details>
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>lang</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Language you want to get.</p>
+            </div>
+          </td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="sl10n.exceptions.SL10nIsNotInitialized">SL10nIsNotInitialized</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>When <code>SL10n</code> isn't initialized.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="tip" open>
+  <summary>Tip</summary>
+  <p>We do recommend to type hint a variable where you would store a locale container.
+Some IDEs (like PyCharm) may fail to highlight unresolved attributes if you don't do so.
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">locale</span><span class="p">:</span> <span class="n">MyLocale</span> <span class="o">=</span> <span class="n">l10n</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+</span></code></pre></div></p>
+</details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="sl10n.SL10n.print_modifiers_available" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>
+              <span class="doc doc-object-name doc-function-name">print_modifiers_available</span>
+
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">print_modifiers_available</span><span class="p">()</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Print all modifiers available.</p>
+
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="sl10n.SLocale" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">SLocale</span>
+
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents first">
+
+  
+      <p>This class contains some specific fields and methods to your locale containers.</p>
+<p>Also, you must subclass your locale container from this class to use it in <code>SL10n</code>.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="sl10n.SLocale.lang_code" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>
+              <span class="doc doc-object-name doc-attribute-name">lang_code</span>
+
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">lang_code</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Current locale lang code (filename). Can be overwritten only by "$lang_code" modifier.</p>
+<p>Sets to <code>None</code> if the container is a sample one.</p>
+  </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="sl10n.SLocale.get" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>
+              <span class="doc doc-object-name doc-function-name">get</span>
+
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a string associated with the given key (if such
+a key exists, otherwise returns the key itself).</p>
+<p>Can be used if the key is known only at runtime.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>key</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Key used to get string.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>If such a key exists, string associated with the given key.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Otherwise, the key itself.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Warns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>UnexpectedLocaleKey</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>When got an unexpected key.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">MyLocale</span><span class="p">(</span><span class="n">sl10n</span><span class="o">.</span><span class="n">SLocale</span><span class="p">):</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">my_key_1</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">my_key_2</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">...</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="o">...</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">locale</span> <span class="o">=</span> <span class="n">l10n</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">my_text_1</span> <span class="o">=</span> <span class="n">locale</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;my_key_1&#39;</span><span class="p">)</span>  <span class="c1"># &#39;Text 1&#39;</span>
+</span></code></pre></div>
+</details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="sl10n.SLocale.sample" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>
+              <span class="doc doc-object-name doc-function-name">sample</span>
+
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">sample</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">T</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="sl10n.locale.T">T</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A sample locale container with key names as values.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+      <p><code>SLocale.lang_code</code> sets to None.</p>
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">MyLocale</span><span class="p">(</span><span class="n">sl10n</span><span class="o">.</span><span class="n">SLocale</span><span class="p">):</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">my_key_1</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">my_key_2</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">...</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">sample</span> <span class="o">=</span> <span class="n">MyLocale</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>  <span class="c1"># MyLocale(lang_code=None, my_key_1=&#39;my_key_1&#39;, my_key_2=&#39;my_key_2&#39;, ...)</span>
+</span></code></pre></div>
+</details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="sl10n.SLocale.to_dict" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>
+              <span class="doc doc-object-name doc-function-name">to_dict</span>
+
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">to_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>dict[str, str | None]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>A dict converted from a locale container.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">MyLocale</span><span class="p">(</span><span class="n">sl10n</span><span class="o">.</span><span class="n">SLocale</span><span class="p">):</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">my_key_1</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">my_key_2</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="o">...</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="o">...</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">locale</span> <span class="o">=</span> <span class="n">l10n</span><span class="o">.</span><span class="n">locale</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">locale_dict</span> <span class="o">=</span> <span class="n">locale</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>  <span class="c1"># {&#39;lang_code&#39;: &#39;en&#39;, my_key_1: &#39;Text 1&#39;, my_key_2: &#39;Text 2&#39;, ...}</span>
+</span></code></pre></div>
+</details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="sl10n.warnings" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>
+              <span class="doc doc-object-name doc-module-name">warnings</span>
+
+
+
+</h2>
+
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.warnings.DefaultLangFileNotFound" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">DefaultLangFileNotFound</span>
+
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>UserWarning</code></p>
+
+  
+      <p>Propogates when the default language file not found.</p>
+
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.warnings.LangFileAlreadyExists" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">LangFileAlreadyExists</span>
+
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>UserWarning</code></p>
+
+  
+      <p>Propogates when the language file already exists.</p>
+
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.warnings.SL10nAlreadyInitialized" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">SL10nAlreadyInitialized</span>
+
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">SL10nAlreadyInitialized</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>UserWarning</code></p>
+
+  
+      <p>Propogates when SL10n already initialized.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.warnings.UndefinedLocale" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">UndefinedLocale</span>
+
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>UserWarning</code></p>
+
+  
+      <p>Propogates when got an undefined locale.</p>
+
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.warnings.UndefinedLocaleKey" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">UndefinedLocaleKey</span>
+
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>UserWarning</code></p>
+
+  
+      <p>Propogates when found an undefined locale key.</p>
+
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.warnings.UnexpectedLocaleKey" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">UnexpectedLocaleKey</span>
+
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>UserWarning</code></p>
+
+  
+      <p>Propogates when found an unexpected locale key.</p>
+
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.warnings.UnfilledLocaleKey" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">UnfilledLocaleKey</span>
+
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>UserWarning</code></p>
+
+  
+      <p>Propogates when found an unfilled (<code>value == key</code> or value is empty) locale key.</p>
+
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.warnings.UnknownModifier" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">UnknownModifier</span>
+
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code>UserWarning</code></p>
+
+  
+      <p>Propogates when found an unknown modifier.</p>
+
+
+  </div>
+
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="sl10n.pimpl" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>
+              <span class="doc doc-object-name doc-module-name">pimpl</span>
+
+
+
+</h2>
+
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.pimpl.ParsingImpl" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">ParsingImpl</span>
+
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+  
+      <p>Interface for file parsing implementations.</p>
+<p>You can inherit from it and define your own parsing implementation for SL10n.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="sl10n.pimpl.ParsingImpl.file_ext" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>
+              <span class="doc doc-object-name doc-attribute-name">file_ext</span>
+
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">file_ext</span><span class="p">:</span> <span class="nb">str</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a string that represents what file extension the parsing implementation works with.</p>
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">JSONImpl</span><span class="p">(</span><span class="n">ParsingImpl</span><span class="p">):</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">file_ext</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span>
+</span></code></pre></div>
+</details>  </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="sl10n.pimpl.ParsingImpl.load" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>
+              <span class="doc doc-object-name doc-function-name">load</span>
+
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="n">IO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Loads and returns data from a passed IO object (mostly file).</p>
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">json</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">class</span> <span class="nc">JSONImpl</span><span class="p">(</span><span class="n">ParsingImpl</span><span class="p">):</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">IO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span></code></pre></div>
+</details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="sl10n.pimpl.ParsingImpl.dump" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>
+              <span class="doc doc-object-name doc-function-name">dump</span>
+
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">IO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Saves data into a passed IO object (mostly file).</p>
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">json</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">class</span> <span class="nc">JSONImpl</span><span class="p">(</span><span class="n">ParsingImpl</span><span class="p">):</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">IO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+</span></code></pre></div>
+</details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.pimpl.JSONImpl" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">JSONImpl</span>
+
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">JSONImpl</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">module</span><span class="p">:</span> <span class="n">ModuleType</span> <span class="o">=</span> <span class="n">json</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="sl10n.pimpl.base.ParsingImpl" href="#sl10n.pimpl.ParsingImpl">ParsingImpl</a></code></p>
+
+  
+      <p>Interface for basic JSON parsers implementations (which follow builtin <code>json</code> interface).</p>
+<p>Modules confirmed as supported: <code>json</code>, <code>simplejson</code>, <code>ujson</code>, <code>rapidjson</code></p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="sl10n.pimpl.JSONImpl.file_ext" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>
+              <span class="doc doc-object-name doc-attribute-name">file_ext</span>
+
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h4>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">file_ext</span> <span class="o">=</span> <span class="s1">&#39;json&#39;</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Accepts ".json" files.</p>
+  </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="sl10n.pimpl.ORJSONImpl" class="doc doc-heading">
+    <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>
+              <span class="doc doc-object-name doc-class-name">ORJSONImpl</span>
+
+
+
+</h3>
+<div class="doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">ORJSONImpl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="sl10n.pimpl.json.JSONImpl" href="#sl10n.pimpl.JSONImpl">JSONImpl</a></code></p>
+
+  
+      <p>Interface for <code>orjson</code> module.</p>
+<p>Please ensure that you have this module installed.</p>
+
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+    
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 27, 2024</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Created">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 27, 2024</span>
+  </span>
+
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/SyberiaK" target="_blank" rel="noopener" title="SyberiaK on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/syberiakey" target="_blank" rel="noopener" title="SyberiaK on Twitter (screw you Elon)" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "content.code.copy", "content.action.edit", "content.action.view", "navigation.indexes", "navigation.instant", "navigation.top"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c18c5fb9.min.js"></script>
+      
+    
+  </body>
+</html>
