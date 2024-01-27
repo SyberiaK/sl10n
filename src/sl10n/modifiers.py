@@ -4,9 +4,7 @@ from typing import NamedTuple
 
 class PreModifiers(NamedTuple):
     """
-    Class that contains possible modifiers that activate BEFORE locale processing.
-
-    This class is not intended to be inherited.
+    Class that contains possible modifiers that would apply BEFORE locale processing.
 
     Available modifiers:
 
@@ -19,9 +17,7 @@ class PreModifiers(NamedTuple):
 
 class PostModifiers(NamedTuple):
     """
-    Class that contains possible modifiers that activate AT or AFTER locale processing.
-
-    This class is not intended to be inherited.
+    Class that contains possible modifiers that would apply AT or AFTER locale processing.
 
     Available modifiers:
 

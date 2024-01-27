@@ -3,12 +3,10 @@ from __future__ import annotations
 
 class DefaultLangFileNotFound(UserWarning):
     """Propogates when the default language file not found."""
-    pass
 
 
 class LangFileAlreadyExists(UserWarning):
     """Propogates when the language file already exists."""
-    pass
 
 
 class SL10nAlreadyInitialized(UserWarning):
@@ -24,22 +22,19 @@ class SL10nAlreadyInitialized(UserWarning):
 
 
 class UndefinedLocaleKey(UserWarning):
-    """Propogates when found undefined locale key."""
-    pass
+    """Propogates when found an undefined locale key."""
 
 
 class UnexpectedLocaleKey(UserWarning):
-    """Propogates when found unexpected locale key."""
-    pass
+    """Propogates when found an unexpected locale key."""
 
 
 class UnfilledLocaleKey(UserWarning):
-    """Propogates when found unfilled (``value == key`` or value is empty) locale key."""
-    pass
+    """Propogates when found an unfilled (``value == key`` or value is empty) locale key."""
 
 
 class UndefinedLocale(UserWarning):
-    """Propogates when got undefined locale."""
+    """Propogates when got an undefined locale."""
 
 
 class UnknownModifier(UserWarning):

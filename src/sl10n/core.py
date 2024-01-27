@@ -15,7 +15,7 @@ from .exceptions import SL10nIsNotInitialized
 from .locale import SLocale
 from .modifiers import PreModifiers, PostModifiers
 from .pimpl import ParsingImpl, JSONImpl
-from .process import _LocaleProcessor as LocaleProcessor
+from ._process import _LocaleProcessor as LocaleProcessor
 from ._strict import strict_wrapper
 from .warnings import DefaultLangFileNotFound, LangFileAlreadyExists, SL10nAlreadyInitialized, UndefinedLocale
 
@@ -28,7 +28,7 @@ class SL10n(Generic[T]):
     """
     Static text localization system.
 
-    To use it, first create a locale container (it MUST be a subclass of `sl10n.SLocale`)
+    To use it, first create a locale container (it MUST be a subclass of ``SLocale``)
     and define some string keys in it:
     ```python
     class MyLocale(sl10n.SLocale):
@@ -37,13 +37,13 @@ class SL10n(Generic[T]):
         ...
     ```
 
-    After that, create an SL10n object and pass in your locale container:
+    After that, create an ``SL10n`` object and pass in your locale container:
     ```python
     l10n = sl10n.Sl10n(MyLocale)
     ```
 
     Note that it only creates a reference to your localization system. To load all locale files
-    and pack their content into locale containers, call `SL10n.init()` method:
+    and pack their content into locale containers, call ``SL10n.init()`` method:
     ```python
     l10n = sl10n.Sl10n(MyLocale)
     ...
@@ -69,10 +69,10 @@ class SL10n(Generic[T]):
             ignore_filenames (Iterable[str], optional):
                 What filenames the parser should ignore. Defaults to ``()``.
             parsing_impl (ParsingImpl, optional):
-                What parsing implementation to use. Defaults to ``JSONImpl(json, indent=2, ensure_ascii=False)``.
+                What parsing implementation to use. Defaults to ``pimpl.JSONImpl(json, indent=2, ensure_ascii=False)``.
 
         Raises:
-            TypeError: When locale_container is not an SLocale subclass or is an SLocale itself.
+            TypeError: When locale_container is not an ``SLocale`` subclass or is an ``SLocale`` itself.
         """
 
         self._check_locale_container(locale_container)
@@ -123,13 +123,13 @@ class SL10n(Generic[T]):
             l10n.init()
             ```
 
-            It also returns a reference to your SL10n object, so you can use this oneline to init immediately:
+            It also returns a reference to your ``SL10n`` object, so you can use this oneline to init immediately:
             ```python
             l10n = sl10n.Sl10n(MyLocale).init()
             ```
 
         Warns:
-            SL10nAlreadyInitialized: When Sl10n is already initialized.
+            SL10nAlreadyInitialized: When ``Sl10n`` is already initialized.
         """
 
         if self._initialized:
@@ -154,7 +154,7 @@ class SL10n(Generic[T]):
     @strict_wrapper
     def locale(self, lang: str | None = None) -> T:
         """
-        Returns a Locale object, containing all defined string keys translated to the requested language
+        Returns a locale container, containing all defined string keys translated to the requested language
         (if such translation exists, otherwise returns a default one).
 
         Example:
@@ -170,7 +170,7 @@ class SL10n(Generic[T]):
                 Language you want to get.
 
         Raises:
-            RuntimeError: When SL10n isn't initialized.
+            SL10nIsNotInitialized: When ``SL10n`` isn't initialized.
 
         Tip:
             We do recommend to type hint a variable where you would store a locale container.
@@ -218,11 +218,11 @@ class SL10n(Generic[T]):
                 Defaults to ``False``.
 
         Warns:
-            SL10nAlreadyInitialized: If Sl10n is initialized.
+            SL10nAlreadyInitialized: If ``SL10n`` is initialized.
             LangFileAlreadyExists: When the file already exists and ``override`` set to ``False``
 
         Warning:
-            Can be called **only before** SL10n initialization.
+            Can be called **only before** ``SL10n`` initialization.
         """
         if self._initialized:
             warnings.warn(SL10nAlreadyInitialized('"create_lang_file" can be called only before Sl10n initialization.'),

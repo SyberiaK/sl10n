@@ -18,19 +18,18 @@ class SLocale:
     """
     This class contains some specific fields and methods to your locale containers.
 
-    Also, you must subclass your locale container from this class in order to use in ``SL10n``.
+    Also, you must subclass your locale container from this class to use it in ``SL10n``.
     """
 
     lang_code: str | None
     """
-    Current locale lang code (filename). Cannot be overwritten even from the file.
+    Current locale lang code (filename). Can be overwritten only by "$lang_code" modifier.
     
-    Sets to None if the container is a sample one.
+    Sets to ``None`` if the container is a sample one.
     """
 
     def __init_subclass__(cls, *args, **kwargs):
-        # noinspection PyArgumentList
-        return dataclass(cls, **DATACLASS_PARAMS)
+        return dataclass(**DATACLASS_PARAMS)(cls)
 
     @classmethod
     def sample(cls) -> T:
@@ -52,11 +51,11 @@ class SLocale:
         """
 
         _fields = (k.name for k in fields(cls))
-        data = {field: field for field in _fields}
+        data: dict[str, str | None] = {field: field for field in _fields}
         data['lang_code'] = None
         return cls(**data)
 
-    def to_dict(self) -> dict[str, str]:
+    def to_dict(self) -> dict[str, str | None]:
         """
         Returns:
             A dict converted from a locale container.
@@ -80,7 +79,7 @@ class SLocale:
     def get(self, key: str) -> str:
         """
         Returns a string associated with the given key (if such
-        key exists, otherwise returns the key itself).
+        a key exists, otherwise returns the key itself).
 
         Can be used if the key is known only at runtime.
 
@@ -89,7 +88,8 @@ class SLocale:
                 Key used to get string.
 
         Returns:
-            If such key exists, string associated with the given key. Otherwise the key itself.
+            If such a key exists, string associated with the given key.
+            Otherwise, the key itself.
 
         Warns:
             UnexpectedLocaleKey: When got an unexpected key.
