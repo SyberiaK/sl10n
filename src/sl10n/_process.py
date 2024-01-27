@@ -75,7 +75,17 @@ class _LocaleProcessor:
         # Join strings in arrays with '\n'
         for key, val in self.data.items():
             if isinstance(val, list):
-                self.data[key] = '\n'.join(val)
+                val = '\n'.join(val)
+                self.data[key] = val
+
+            # _type = self.lc_fields.get(key)
+            # if _type is None:
+            #     continue
+            #
+            # if not isinstance(val, _type):
+            #     warnings.warn(f'Found "{key}" value having wrong type'
+            #                   f' (expected: {_type.__name__}, actual: {type(val).__name__}) in "{self.filepath}"',
+            #                   UserWarning, stacklevel=4)
 
         return self.locale_container(**self.data)
 
