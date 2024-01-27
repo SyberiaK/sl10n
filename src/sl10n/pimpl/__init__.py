@@ -1,2 +1,2 @@
 from .base import ParsingImpl
-from .jsonp import *
+from .json import *
