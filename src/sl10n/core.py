@@ -11,20 +11,17 @@ if sys.version_info >= (3, 11):
     from typing import Self
 
 from . import UTF8
-from .pimpl import ParsingImpl, JSONImpl
-from .process import _LocaleProcessor as LocaleProcessor
+from .exceptions import SL10nIsNotInitialized
 from .locale import SLocale
 from .modifiers import PreModifiers, PostModifiers
+from .pimpl import ParsingImpl, JSONImpl
+from .process import _LocaleProcessor as LocaleProcessor
+from ._strict import strict_wrapper
 from .warnings import DefaultLangFileNotFound, LangFileAlreadyExists, SL10nAlreadyInitialized, UndefinedLocale
 
 
 T = TypeVar('T')
 PathLike = TypeVar('PathLike', str, _PathLike)
-
-
-class _File:
-    def __new__(cls, filename: str, extension: str):
-        return Path(f'{filename}.{extension}')
 
 
 class SL10n(Generic[T]):
@@ -58,7 +55,8 @@ class SL10n(Generic[T]):
     default_pimpl = JSONImpl(indent=2, ensure_ascii=False)
 
     def __init__(self, locale_container: Type[T], path: Path | PathLike = default_path, *, default_lang: str = 'en',
-                 ignore_filenames: Iterable[str] = (), parsing_impl: ParsingImpl = default_pimpl):
+                 ignore_filenames: Iterable[str] = (), parsing_impl: ParsingImpl = default_pimpl, strict: bool = False,
+                 warn_unfilled_keys: bool = False):
         """
         Parameters:
             locale_container (Type[T]):
@@ -87,9 +85,10 @@ class SL10n(Generic[T]):
         self.ignore_filenames = ignore_filenames
         self.parsing_impl = parsing_impl
         self.file_ext = parsing_impl.file_ext
+        self.is_strict = strict
 
         self.locales: dict[str, T] = {}
-        self._locale_processor = LocaleProcessor(self.locale_container, self.parsing_impl)  # measured ~60-75% speedup
+        self._locale_processor = LocaleProcessor(self.locale_container, self.parsing_impl, strict, warn_unfilled_keys)
         self._initialized = False
 
     @property
@@ -110,6 +109,7 @@ class SL10n(Generic[T]):
         print(f'PreModifiers available: {", ".join("$" + mod for mod in PreModifiers._fields)}')
         print(f'PostModifiers available: {", ".join("$" + mod for mod in PostModifiers._fields)}')
 
+    @strict_wrapper
     def init(self) -> Self:
         """
         Load all locale files and pack their content into locale containers.
@@ -131,14 +131,16 @@ class SL10n(Generic[T]):
         Warns:
             SL10nAlreadyInitialized: When Sl10n is already initialized.
         """
+
         if self._initialized:
             warnings.warn(SL10nAlreadyInitialized(), stacklevel=2)
             return
 
-        default_lang_file = _File(self.default_lang, self.file_ext)
+        default_lang_file = Path(f'{self.default_lang}.{self.file_ext}')
         if not (self.path / default_lang_file).exists():
-            warnings.warn(f'Can\'t find "{default_lang_file}" in locales, generating a file...',
-                          DefaultLangFileNotFound, stacklevel=2)
+            err_message = f'Can\'t find "{default_lang_file}" in {self.path}.' if self.is_strict \
+                else f'Can\'t find "{default_lang_file}" in {self.path}, generating a file...'
+            warnings.warn(err_message, DefaultLangFileNotFound, stacklevel=2)
             self.create_lang_file(self.default_lang)
 
         for file in self.path.glob(f'*.{self.file_ext}'):
@@ -149,6 +151,7 @@ class SL10n(Generic[T]):
         self._initialized = True
         return self
 
+    @strict_wrapper
     def locale(self, lang: str | None = None) -> T:
         """
         Returns a Locale object, containing all defined string keys translated to the requested language
@@ -178,19 +181,21 @@ class SL10n(Generic[T]):
         """
 
         if not self._initialized:
-            raise RuntimeError('{0} was not initialized. Perhaps you forgot to call {0}.init()?'
-                               .format(self.__class__.__name__))
+            raise SL10nIsNotInitialized('{0} was not initialized. Perhaps you forgot to call {0}.init()?'
+                                        .format(self.__class__.__name__))
 
         if lang is None:
             lang = self.default_lang
 
         if (locale := self.locales.get(lang)) is None:
-            warnings.warn(f'Got unexpected lang "{lang}", returned "{self.default_lang}"',
-                          UndefinedLocale, stacklevel=2)
+            err_message = f'Got unexpected lang "{lang}".' if self.is_strict \
+                            else f'Got unexpected lang "{lang}", returned "{self.default_lang}"'
+            warnings.warn(err_message, UndefinedLocale, stacklevel=2)
             return self.locales[self.default_lang]
 
         return locale
 
+    @strict_wrapper
     def create_lang_file(self, lang: str, override: bool = False):
         """
         Creates a sample lang file in a requested path.
@@ -224,17 +229,13 @@ class SL10n(Generic[T]):
                           stacklevel=2)
             return
 
-        path = self.path / _File(lang, self.file_ext)
+        path = self.path / Path(f'{lang}.{self.file_ext}')
         if override is False and path.exists():
             warnings.warn(f'Lang file "{path}" already exists.', LangFileAlreadyExists, stacklevel=2)
             return
 
-        p = self.path / _File(self.default_lang, self.file_ext)
-        if p.exists():
-            sample = self._locale_processor.process(p)
-        else:
-            sample = self.locale_container.sample()
-
+        p = self.path / Path(f'{self.default_lang}.{self.file_ext}')
+        sample = self._locale_processor.process(p) if p.exists() else self.locale_container.sample()
         sample = sample.to_dict()
 
         keys_to_remove = set()
