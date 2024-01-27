@@ -40,4 +40,7 @@ class UnfilledLocaleKey(UserWarning):
 
 class UndefinedLocale(UserWarning):
     """Propogates when got undefined locale."""
-    pass
+
+
+class UnknownModifier(UserWarning):
+    """Propogates when found an unknown modifier."""
