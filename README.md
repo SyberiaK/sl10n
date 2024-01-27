@@ -43,7 +43,7 @@ print(locale.get('my_key_1'))  # My text
 ```
 
 You may probably think "Sounds pretty simple" and you'd be right. 
-This approach is pretty common (e.g., Minecraft mods use it).
+This approach is pretty common (even Minecraft uses it).
 
 But it's really error-prone. 
 You can easily make a typo or refer to a different key with similar name.

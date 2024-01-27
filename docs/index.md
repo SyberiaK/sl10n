@@ -5,10 +5,10 @@ hide:
   - toc
 ---
 
-# Welcome to SL10n!
+# Welcome to sl10n!
 
 Here you'll find all the documentation you need 
-to set up and running with the SL10n.
+to set up and running with the `sl10n`.
 
 !!! warning
 

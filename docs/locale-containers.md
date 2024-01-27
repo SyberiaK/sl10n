@@ -2,10 +2,11 @@
 
 ## Motivation
 
-Applications can eventually grow bigger and start to be used worldwide.
-Before that, you didn't think about your application audience and how to wide it,
-which is now becoming crucial to succeed. Localization can significantly increase the reach
-and impact of your application, as it becomes more accessible for people in different countries. 
+As your product expands and starts to be used worldwide, 
+it becomes essential to think about your audience and how to wide it.
+Localization can greatly improve the reach
+and impact of your application, making it 
+more accessible for people in different countries. 
 
 So you decided to integrate it into your application. 
 
@@ -17,7 +18,7 @@ You ended up creating a `lang` folder containing all translations...
 }
 ```
 
-...and a parser that reads these files and stores them in a mapping.
+...and a parser that reads and stores these files in a mapping.
 
 ```python linenums="1"
 import parser  # your handwritten parser
@@ -28,10 +29,11 @@ locale = locales.get('en')
 print(locale.get('my_key_1'))  # My text
 ```
 
-You can take any string you want by its string key.
+You can take any string you want by its key.
 
-You may think "Sounds pretty simple"... and you'd be right. 
-This approach is pretty common and used in many applications (even Minecraft mods use it).
+You may think "Sounds pretty simple"... and you'd be right.
+
+This approach is pretty common and used in many applications and games (even Minecraft uses it).
 
 But it's really error-prone. You can easily make a typo or refer to a different key with a similar name.
 
@@ -119,7 +121,7 @@ and dynamically typed programming languages.
     }
     ```
     
-    ??? info "An interesting fact about JavaScript"
+    ??? info "Fun fact about JavaScript"
 
         This is a valid JavaScript.
         ```js linenums="1"
@@ -148,34 +150,49 @@ my 300 billion dollar application localization spec:
 The idea is to define a spec which determines what keys we can use in our application.
 This also creates a layer between translation files and our program.
 
-The spec also allows us to check for undefined, unfilled or odd localization keys.
+That way we can clearly define what localization keys we have 
+and what we haven't, which makes debugging it much simpler.
+
+As an example, the spec allows us to check for undefined, unfilled 
+or odd localization keys in the files.
 
 It's really *that* simple.
 
 ## Defining a locale container
 
-In `sl10n`, locale containers are defined by subclassing `sl10n.SLocale`:
-```python linenums="1"
+In `sl10n`, locale containers are defined by subclassing `SLocale`:
+```python linenums="1" hl_lines="4-8"
 from sl10n import SLocale
 
+
 class MyLocale(SLocale):
-    my_key_1: str
-    my_key_2: str
+    greetings_text: str
+    main_menu_title: str
+    success_text: str
+    error_text: str
 ```
 
 !!! note
 
     All locale container strings, even multiline ones, have `#!python str` type.
 
-Then you need to reference it when defining an `sl10n.SL10n` object:
-```python linenums="1"
+Then you need to reference it when defining an `SL10n` object:
+
+```python linenums="1" hl_lines="9"
 from sl10n import SL10n, SLocale
 
 class MyLocale(SLocale):
-    my_key_1: str
-    my_key_2: str
-    
+    greetings_text: str
+    main_menu_title: str
+    success_text: str
+    error_text: str
+
 sl10n = SL10n(MyLocale)
 ```
+
+!!! warning
+
+    You can't use `SLocale` directly in `SL10n`.
+    Treat it as an abstract dataclass.
 
 That's it.

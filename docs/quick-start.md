@@ -19,7 +19,7 @@
 
 ## Import the library
 
-To start working with sl10n, we need to import the main parts of the library.
+To start working with `sl10n`, we need to import the main parts of the library.
 
 ```python linenums="1"
 from sl10n import SL10n, SLocale
@@ -28,9 +28,12 @@ from sl10n import SL10n, SLocale
 ## Define a locale container
 
 Locale container is an important part of sl10n functionality.
-Create a SLocale subclass and define all translation keys you will have.
+Create a `SLocale` subclass and define all translation keys you will have.
 
-```python linenums="1"
+```python linenums="1" hl_lines="4-8"
+from sl10n import SLocale
+
+
 class MyLocale(SLocale):
     greetings_text: str
     main_menu_title: str
@@ -44,23 +47,42 @@ class MyLocale(SLocale):
 
 ## Initialize the SL10n
 
-To reference the SL10n system, create an SL10n object.
+To reference the `SL10n` system, create an `SL10n` object.
 
-```python linenums="1"
+```python linenums="1" hl_lines="9"
+from sl10n import SL10n, SLocale
+
+class MyLocale(SLocale):
+    greetings_text: str
+    main_menu_title: str
+    success_text: str
+    error_text: str
+
 sl10n = SL10n(MyLocale)
 ```
 
+!!! warning
+
+    You can't use `SLocale` directly in `SL10n`.
+    Treat it as an abstract dataclass.
+
 You can also define a path where your translation files are stored, 
 what language is default, what filenames should be ignored 
-and what JSON parsing implementations to use:
+and what parsing implementation (implements `sl10n.pimpl.ParsingImpl`) to use:
 
-```python linenums="1"
+```python linenums="1" hl_lines="14-17"
 from pathlib import Path
 from sl10n import SL10n, SLocale
 from sl10n.pimpl import JSONImpl
 import ujson  # not a stdlib
 
-...
+
+class MyLocale(SLocale):
+    greetings_text: str
+    main_menu_title: str
+    success_text: str
+    error_text: str
+    
 
 sl10n = SL10n(MyLocale, Path.cwd() / 'data',
               default_lang='de',
@@ -72,14 +94,23 @@ Note that it only creates a *reference* to your localization system.
 To load all locale files and pack their content into locale containers,
 call `SL10n.init()`:
 
-```python linenums="1"
+```python linenums="1" hl_lines="10"
+from sl10n import SL10n, SLocale
+
+class MyLocale(SLocale):
+    greetings_text: str
+    main_menu_title: str
+    success_text: str
+    error_text: str
+
+sl10n = SL10n(MyLocale)
 sl10n.init()
 ```
 
 !!! tip
 
-    `SL10n.init()` returns a reference to your SL10n object,
-    so you can use this oneline to initialize immediately:
+    `SL10n.init()` returns a reference to your `SL10n` object,
+    so you can use this oneline to initialize it immediately:
 
     ```python linenums="1"
     sl10n = sl10n.Sl10n(MyLocale).init()
@@ -131,7 +162,7 @@ Later on, you can use modifiers in these files.
     "Error!",
     "Please try again."
   ], 
-  "redump": true  // redumps the file anyway
+  "$redump": true  // redumps the file anyway
 }
 ```
 
@@ -151,7 +182,7 @@ sl10n.create_lang_file('de')
 
 !!! warning
 
-    You can create lang files **only before** SL10n init.
+    You can create lang files **only before** `SL10n` init.
 
     ```python linenums="1"
     sl10n = SL10n(MyLocale).init()
@@ -173,7 +204,7 @@ print(locale.greetings_text)  # Hello World!
 ```
 
 You can access locale strings just like object attributes. 
-If you do need to use string key:
+If you do need to use a string key:
 
 ```python linenums="1"
 locale = l10n.locale('de')
@@ -207,7 +238,7 @@ def locale(lang: str = None) -> MyLocale:
 
 ## Basic template
 
-To summarize it up, here's the basic template for SL10n integration 
+To summarize it up, here's the basic template for `sl10n` integration 
 you can use as a starting point:
 
 ```python linenums="1"
@@ -239,4 +270,4 @@ if __name__ == "__main__":
     main()
 ```
 
-If you want to know more details about each part of SL10n - check other pages.
+If you want to know more details about each part of `sl10n` - check other pages.
