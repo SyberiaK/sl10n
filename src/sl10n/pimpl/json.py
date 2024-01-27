@@ -8,7 +8,7 @@ import warnings
 from .base import ParsingImpl
 
 
-__all__ = ('JSONImpl', 'ORJSONImpl')
+__all__ = ['JSONImpl', 'ORJSONImpl']
 
 
 class JSONImpl(ParsingImpl):
