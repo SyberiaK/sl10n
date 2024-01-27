@@ -68,7 +68,7 @@ sl10n = SL10n(MyLocale)
 
 You can also define a path where your translation files are stored, 
 what language is default, what filenames should be ignored 
-and what parsing implementation (implements `sl10n.pimpl.ParsingImpl`) to use:
+and what parsing implementation (implements `pimpl.ParsingImpl`) to use:
 
 ```python linenums="1" hl_lines="14-17"
 from pathlib import Path
